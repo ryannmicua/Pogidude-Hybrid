@@ -1,0 +1,258 @@
+/*
+Theme Name: Theme Name
+Theme URI: http://theme.com
+Description: A theme made for Mobility 21 Transportation Coalition.
+Author: Prosulum
+Author URI: http://prosulum.com
+Version: 1.0
+Tags: non-profit
+*/
+
+/* CSS Reset */
+@import url( css/reset-meyer.css );
+/*@import url('hybrid-core/css/reset.css');  */
+
+/* Defaults - Don't use Reset when using any of the below */
+/*@import url('hybrid-core/css/18px.css'); */
+/*@import url('hybrid-core/css/20px.css'); */
+/*@import url('hybrid-core/css/21px.css'); */
+/*@import url('hybrid-core/css/22px.css'); */
+/*@import url('hybrid-core/css/24px.css'); */
+
+/* Hybrid Dropdown styles */
+/*@import url('hybrid-core/css/drop-downs.css');*/
+
+/* Plugins */
+/*@import url('hybrid-core/css/plugins.css');*/
+
+/* UI Tabs */
+/*@import url('hybrid-core/css/ui-tabs.css'); */
+
+/* Gallery */
+/*@import url('hybrid-core/css/gallery.css');*/
+
+/* Custom Font Face */
+@font-face {
+    font-family: 'BebasRegular';
+    src: url('fonts/BEBAS___-webfont.eot');
+    src: url('fonts/BEBAS___-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/BEBAS___-webfont.woff') format('woff'),
+         url('fonts/BEBAS___-webfont.ttf') format('truetype'),
+         url('fonts/BEBAS___-webfont.svg#BebasRegular') format('svg');
+    /*font-weight: normal;
+    font-style: normal;*/
+
+}
+
+body{}
+
+	#main-wrap{}
+	
+/***************************************
+* Elements
+****************************************/
+
+/* Hyperlinks */
+a{ color: #7cbfcb; }
+/* a:link { color: #015581; text-decoration: none;} */
+a:visited { color: #7cbfcb; }
+a:hover { }
+a:active { color: #8D181E; }
+
+/* Headers */
+h1, h2, h3, h4, h5, h6{ }
+h1 { font-size: 24px; font-weight: bold; }
+h2 { font-size: 18px; font-weight: bold; }
+h3 { font-size: 16px; }
+h4 { font-size: 14px; font-weight: bold; }
+h5 { font-size: 13px; font-weight: bold; }
+h6 {}
+
+/* Text elements */
+strong { font-weight: bold; }
+em { font-style: italic; }
+cite { font-style: italic; }
+abbr { cursor: help; color: #8F1A20; text-decoration: underline; }
+acronym {}
+sup { vertical-align: baseline;	position: relative;	bottom: 0.3em;}
+sub { vertical-align: baseline;	position: relative;	top: 0.3em;}
+address { font-style: italic; margin: 0 0 18px 0;}
+ins, dfn{font-style: italic; text-decoration: none; border-bottom: 1px solid #666; }
+ins {}
+dfn {}
+del {text-decoration: line-through;}
+big {font-size: 120%;}
+small, sup, sub{font-size: 80%;}
+var{ font-family: monospace;}
+
+/* Paragraphs */
+p { line-height: 18px; }
+
+/* Unordered lists */
+ul { margin-bottom: 18px; }
+	ul li {}
+
+/* Ordered lists */
+ol { list-style-type: decimal; margin: 0 0 18px 30px; }
+	ol ol{ list-style-type: upper-roman; }
+		ol ol ol{ list-style-type: lower-roman; }
+			ol ol ol ol{ list-style-type: upper-alpha; }
+				ol ol ol ol ol{ list-style-type: lower-alpha; }
+	ol li {}
+
+ul ul, ol ol, ul ol, ol ul{ margin-bottom: 0; }
+
+/* Defition lists */
+dl { margin: 0 0 18px 3px;  }
+	dt { font-weight: bold; margin: 12px 0 0 0; }
+	dd {  margin: 6px 0 0 1.5em; }
+
+/* Blockquotes */
+blockquote { background: #eee; border-left: 3px solid #bbb; padding: 9px 36px 1px 9px; margin: 9px 36px 18px 36px; }
+	blockquote blockquote {}
+	blockquote em { font-style: italic; }
+
+/* Object */
+object { margin-bottom: 18px; }
+
+/* Horizontal Rule */
+hr{ margin: 18px 0; background: #aaa; height: 1px; width: 100%; display: block;}
+
+/* Code */
+code { font: .9em Monaco, monospace, Courier, "Courier New";  }
+pre { overflow: auto; font: .9em Monaco, monospace, Courier, "Courier New";	line-height: 18px; margin-bottom: 18px; padding: 9px; }
+pre code { font-size: 1em; }
+
+/* Tables */
+table { background: #fff; border-collapse: collapse;  border-left: 2px solid #999; border-right: 2px solid #999; border-spacing: 0; margin: 0 0 18px 0; width: 100%; }
+	caption {}
+	tr {}
+	tr.even{ background: #f5f5f5; }
+	tr.odd{ }
+	th { font-weight: bold; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; border-right: 1px solid #ccc; padding: 4px 2%; text-align: left; }
+	td { padding: 4px 2%; border-bottom: 1px solid #ccc; border-right: 1px solid #ccc; text-align: left; }
+
+/* Forms */
+form {}
+	textarea, input[type="text"] {border: 1px solid #DCDCDA; font-size: 12px; color: #6E7273; padding: 4px 6px; }
+	input[type="text"]{width: 250px;}
+	textarea{ width: 97%; }
+	input {border: 1px solid #DCDCDA; font-size: 12px;}
+	input[type="submit"],input[type="image"] { cursor: pointer; }
+	label {}
+	option {}
+	:focus{ outline: none; }
+
+/* Buttons */
+.button, input[type="button"], div.button a{  }
+.button-red{}
+.button-blue{}
+
+/* Notes */
+.note {}
+
+/* Warnings/Alerts */
+.warning, .alert {}
+
+/* Errors */
+.error {}
+
+/* Downloads */
+.download {}
+
+/* Alignment */
+.left, .alignleft { float: left; margin: 9px 12px 9px 0; }
+.right, .alignright { float: right; margin: 9px 0 9px 12px; }
+.center, .aligncenter { display: block; margin: 9 auto 9px; }
+.block, .alignnone { display: block; margin: 9 0 9px; }
+.clear { clear: both; }
+
+/**
+* Images
+************************************************/
+
+/* Normal images */
+img {  }
+a img {}
+
+/* WP Smilies */
+img.wp-smiley {}
+
+/* Thumbnails */
+.thumbnail {}
+
+/* WP Captions [caption] */
+.wp-caption {}
+	.wp-caption img {}
+	.wp-caption p {}
+
+/* Gallery [gallery] */
+.gallery {}
+	.gallery img {}
+
+/* Avatars */
+.avatar {}
+
+/***********************
+	UTILITY CLASSES
+************************/
+.clear{clear: both;}
+.padder{ padding: 20px; }
+.content-wrap{  }
+
+/***********************
+	HEADER
+************************/
+#header{ }
+	#header .main-padder{}
+	#branding{ }
+		/* Site title */
+		#site-title {display: block; background: url(../images/logo.png) no-repeat 0 0; }
+			#site-title a {display: block; height: 76px; width: 152px; text-indent: -99999px;}
+				#site-title a span {}
+		/* Site description/tagline */
+		#site-description {text-indent: -9999px;}
+	
+	/* Primary Menu */
+	#menu-primary{}
+		ul#menu-primary-items{}
+			#menu-primary li.menu-item{ }
+				#menu-primary li.menu-item a{  }
+				#menu-primary li.sfHover a{}
+				#menu-primary li.current-menu-item a{}
+				#menu-primary li.current-menu-parent a{}
+				
+			/* Submenu */
+			#menu-primary ul.sub-menu{ }
+			#menu-primary li.sfHover ul.sub-menu{  }
+				#menu-primary li.sfHover ul.sub-menu ul.sub-menu{  }
+				#menu-primary ul.sub-menu li{ }
+					#menu-primary ul.sub-menu li a{  }
+					#menu-primary ul.sub-menu li a:hover{  }
+					
+	
+
+
+/***********************
+	FRONTPAGE
+************************/
+
+	
+/***********************
+	CONTENT
+************************/
+
+
+/***********************
+	SIDEBAR
+************************/
+
+
+/***********************
+	FOOTER
+************************/
+
+
+/***********************
+	PLUGINS
+************************/
