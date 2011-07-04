@@ -95,9 +95,19 @@ class Squar_Feature_Box_Widget extends WP_Widget{
 			
 			<p>
 				<label for="<?php echo $this->get_field_id('subtitle'); ?>" ><?php _e( 'Subtitle Entry : ', $this->textdomain ); ?></label>
-				<textarea class="widefat" name="<?php echo $this->get_field_name('subtitle'); ?>" id="<?php echo $this->get_field_id('subtitle'); ?>" cols="23" rows="2" ><?php echo $instance['subtitle']; ?></textarea><br />
+				<textarea class="widefat" name="<?php echo $this->get_field_name('subtitle'); ?>" id="<?php echo $this->get_field_id('subtitle'); ?>" cols="23" rows="8" ><?php echo $instance['subtitle']; ?></textarea><br />
 				<span class="description"><small>You may use html code here.</small></span>
 			</p>
+			
+			<?php if( !empty( $instance['image_url'] ) ) : ?>
+				
+				<p>
+					<label><?php _e('Image Preview Thumbnail', $this->textdomain ); ?></label>
+					<img style="background: #f4f4f4; border: 1px solid #cfcfcf; padding: 8px;" src="<?php echo $thumb_url . '?src=' . $instance['image_url'] . '&w=' . $thumb_width . '&h=' . $thumb_height . '&zc=' . $zoom_crop; ?>" width="<?php echo $thumb_width; ?>" height="<?php echo $thumb_height; ?>" /><br />
+					<em><small><strong>Warning: </strong>Preview image may not reflect how the image will actually look.</small></em>
+				</p>
+				
+			<?php endif; ?>
 			
 			<p>
 				<label for="<?php echo $this->get_field_id('image_url'); ?>" ><?php _e('Image URL: ', $this->textdomain ); ?></label>
@@ -112,16 +122,11 @@ class Squar_Feature_Box_Widget extends WP_Widget{
 				<label for="<?php echo $this->get_field_id('image_height'); ?>" ><?php _e('Height: ', $this->textdomain ); ?></label>
 				<input type="text" name="<?php echo $this->get_field_name('image_height'); ?>" id="<?php echo $this->get_field_id('image_height'); ?>" value="<?php echo $instance['image_height']; ?>" size="2" />
 				<br />
-				<span class="description"><small>Tip: Specify the width only to set height automatically. Example: <code>300</code></small></span>
+				<span class="description"><small>Values here are applied only when they are provided. If not provided, then the actual dimensions of the image will be used. <strong>Tip:</strong> Specify the width only to set height automatically. Example: <code>300</code></small></span>
 			</p>
 
-			<?php if( !empty( $instance['image_url'] ) ) : ?>
-				
-				<p>
-					<label><?php _e('Image Preview Thumbnail', $this->textdomain ); ?></label>
-					<img style="background: #f4f4f4; border: 1px solid #cfcfcf; padding: 8px;" src="<?php echo $thumb_url . '?src=' . $instance['image_url'] . '&w=' . $thumb_width . '&h=' . $thumb_height . '&zc=' . $zoom_crop; ?>" width="<?php echo $thumb_width; ?>" height="<?php echo $thumb_height; ?>" /><br />
-					<em><small><strong>Warning: </strong>Preview image may not reflect how the image will actually look.</small></em>
-				</p>
+			<?php if( $instance['errors']['resize'] ) : ?>
+				<p style="background: #FFEBE8; border: 1px solid #CC0000; padding: 3px; font-size: 90%;"><strong>Advanced Resize</strong> requires the Image Dimensions option <strong>Width</strong> and <strong>Height</strong> set to a valid value. And value must also be greater than 0.</p>
 			<?php endif; ?>
 			
 		</div>
@@ -131,12 +136,8 @@ class Squar_Feature_Box_Widget extends WP_Widget{
 			<h3>Advanced Options</h3>
 			
 			<p>
-				<input type="checkbox" id="<?php echo $this->get_field_id('resize'); ?>" name="<?php echo $this->get_field_name('resize'); ?>" <?php checked( 'checked', $instance['resize'] ); ?> value="checked" /><label for="<?php echo $this->get_field_id('resize'); ?>">Resize image to fit the Image Dimensions</label><br /><span class="description"><small>This option only works if the Width and Height fields have been specified.</small></span>
+				<input type="checkbox" id="<?php echo $this->get_field_id('resize'); ?>" name="<?php echo $this->get_field_name('resize'); ?>" <?php checked( 'checked', $instance['resize'] ); ?> value="checked" /><label for="<?php echo $this->get_field_id('resize'); ?>">Use Advanced Resize</label><br /><span class="description"><small>Resize image to fit the specified image dimensions. <strong>Note:</strong> This option only works if the Width and Height fields have been specified.</small></span>
 			</p>
-			
-			<?php if( $instance['errors']['resize'] ) : ?>
-				<p style="background: #FFEBE8; border: 1px solid #CC0000; padding: 3px; font-size: 90%;">Resize option requires the Image Dimensions option <strong>Width</strong> and <strong>Height</strong> set to a valid value. And value must also be greater than 0.</p>
-			<?php endif; ?>
 			
 			<p>
 				<label for="<?php echo $this->get_field_id('resize_mode'); ?>" ><?php _e('Resize Mode: ', $this->textdomain ); ?></label>
@@ -168,6 +169,7 @@ class Squar_Feature_Box_Widget extends WP_Widget{
 			<p>
 				<input type="checkbox" id="<?php echo $this->get_field_id('reorder'); ?>" name="<?php echo $this->get_field_name('reorder'); ?>" <?php checked( 'checked', $instance['reorder'] ); ?> value="checked" /><label for="<?php echo $this->get_field_id('reorder'); ?>" >Show Image before Subtitle Entry</label><br /><span class="description"><small>By default, subtitles are shown before images. Check this box to show the image before the subtitle entry.</small></span>
 			</p>
+			
 		</div>
 		
 		<div class="clear"></div>
@@ -178,7 +180,7 @@ class Squar_Feature_Box_Widget extends WP_Widget{
 		$instance = $old_instance;
 		
 		unset( $instance['errors'] );
-		$instance['errors'] = array();
+		$instance['errors'] = false;
 		
 		$instance['title'] = esc_html( $new_instance['title'] );
 		$instance['subtitle'] = $new_instance['subtitle'];
@@ -195,15 +197,8 @@ class Squar_Feature_Box_Widget extends WP_Widget{
 		if( !empty( $instance['resize'] ) ){
 			if( empty( $instance['image_height'] ) || empty( $instance['image_width'] ) ){
 				$instance['errors'] = array( 'resize' => true );
-				$instance['resize'] = '';
+			//	$instance['resize'] = '';
 			}
-		}
-		
-		//check if Image URL have been specified.
-		if( empty( $instance['image_url'] ) ){
-			$instance['errors'] = array( 'image_url' => true );
-		} else {
-			
 		}
 		
 		return $instance;
@@ -211,6 +206,11 @@ class Squar_Feature_Box_Widget extends WP_Widget{
 	
 	function widget( $args, $instance ){
 		extract( $args );
+		
+	//	var_dump( $instance );
+		
+		//stop on error
+		if( $instance['errors'] ) return;
 		
 		$out = ''; //Will hold the final html output
 		

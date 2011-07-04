@@ -75,7 +75,7 @@ class Squar_Banner_Item_Widget extends WP_Widget{
 	
 	function form( $instance ){
 	
-		$defaults = array();
+		$defaults = array( 'resize_mode' => 3 );
 		
 		$instance = wp_parse_args( (array) $instance, $defaults );
 		
@@ -123,6 +123,18 @@ class Squar_Banner_Item_Widget extends WP_Widget{
 				</p>
 			</div>
 			
+			<p>
+				<h3 style="margin: 0 0 3px 0;"><?php _e('Link URL: ', $this->textdomain ); ?></h3>
+				<textarea class="widefat code" name="<?php echo $this->get_field_name('link_url'); ?>" id="<?php echo $this->get_field_id('link_url'); ?>" cols="32" rows="3" ><?php echo $instance['link_url']; ?></textarea>
+				<br /><em><small>Setting this option will make the whole banner area clickable. Provide the URL here. <strong>Example: http://example-site.com</strong>
+				<br />
+				<br />This setting is ignored when <strong>HTML Content</strong> is added in the <strong>Advanced Settings</strong>.</small></em>
+			</p>
+			
+			<p>
+				<input type="checkbox" id="<?php echo $this->get_field_id('newwindow'); ?>" name="<?php echo $this->get_field_name('newwindow'); ?>" <?php checked( 'checked', $instance['newwindow'] ); ?> value="checked" /><label for="<?php echo $this->get_field_id('newwindow'); ?>">Open link in new window or tab</label><br /><span class="description"><small>Adds the <code>target="_blank"</code> attribute to the link.</small></span>
+			</p>
+			
 		</div>
 		
 		<div class="hybrid-widget-controls columns-2 column-last" style="width: 280px;">
@@ -154,7 +166,7 @@ class Squar_Banner_Item_Widget extends WP_Widget{
 			</p>
 	
 			<p>
-				<strong>Banner Dimensions</strong><br />
+				<strong>Image Dimension Options</strong><br />
 				<label for="<?php echo $this->get_field_id('image_width'); ?>" ><?php _e('Width: ', $this->textdomain ); ?></label>
 				<input type="text" name="<?php echo $this->get_field_name('image_width'); ?>" id="<?php echo $this->get_field_id('image_width'); ?>" value="<?php echo $instance['image_width']; ?>" size="4" />
 				<label for="<?php echo $this->get_field_id('image_height'); ?>" ><?php _e('Height: ', $this->textdomain ); ?></label>
@@ -164,20 +176,33 @@ class Squar_Banner_Item_Widget extends WP_Widget{
 			</p>
 			
 			<p>
-				<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id('resize'); ?>" name="<?php echo $this->get_field_name('resize'); ?>" <?php checked( 'checked', $instance['resize'] ); ?> value="checked" /><label style="margin-left: 3px;" for="<?php echo $this->get_field_id('resize'); ?>" >Resize Banner Image</label><br /><span class="description"><small>This setting will try to maintain the image's aspect ratio while resizing the banner image. Both width and height values above need to be specified.</small></span>
+				<input type="checkbox" id="<?php echo $this->get_field_id('resize'); ?>" name="<?php echo $this->get_field_name('resize'); ?>" <?php checked( 'checked', $instance['resize'] ); ?> value="checked" /><label for="<?php echo $this->get_field_id('resize'); ?>">Use Advanced Resize</label><br /><span class="description"><small>Resize image to fit the specified image dimensions. <em>Note:</em> This option only works if the Width and Height fields have been specified.</small></span>
 			</p>
 			
 			<p>
-				<h3 style="margin: 0 0 3px 0;"><?php _e('Link URL: ', $this->textdomain ); ?></h3>
-				<textarea class="widefat code" name="<?php echo $this->get_field_name('link_url'); ?>" id="<?php echo $this->get_field_id('link_url'); ?>" cols="32" rows="3" ><?php echo $instance['link_url']; ?></textarea>
-				<br /><em><small>Setting this option will make the whole banner area clickable. Provide the URL here. <strong>Example: http://example-site.com</strong>
+				<label for="<?php echo $this->get_field_id('resize_mode'); ?>" ><?php _e('Resize Mode: ', $this->textdomain ); ?></label>
+				
 				<br />
-				<br />This setting is ignored when <strong>HTML Content</strong> is added in the <strong>Advanced Settings</strong>.</small></em>
+				
+				<select id="<?php echo $this->get_field_id('resize_mode'); ?>" name="<?php echo $this->get_field_name('resize_mode'); ?>" class="widefat" style="min-width: 80%;">
+	
+					<option value="0" <?php selected( '0', esc_attr( $instance['resize_mode'] ) ); ?> >Mode 1 Resize to fit dimensions</option>
+					<option value="1" <?php selected( '1', esc_attr( $instance['resize_mode'] ) ); ?> >Mode 2 Crop and resize to best fit</option>
+					<option value="2" <?php selected( '2', esc_attr( $instance['resize_mode'] ) ); ?> >Mode 3 Resize proportionally w/ borders</option>
+					<option value="3" <?php selected( '3', esc_attr( $instance['resize_mode'] ) ); ?> >Mode 4 Resize proportionally (Default)</option>
+				
+				</select>
+				<br /><br />
+				<em class="description"><small><strong><code>Mode 1</code></strong> - Resize to Fit specified dimensions (no cropping)<br /><strong><code>Mode 2</code></strong> - Crop and resize to best fit the dimensions<br /><code><strong>Mode 3</strong></code> - Resize proportionally to fit entire image into specified dimensions, and add borders if required<br /><code><strong>Mode 4</strong></code> - Resize proportionally adjusting size of scaled image so there are no borders gaps</small></em>
 			</p>
 			
-			<p>
-				<input type="checkbox" id="<?php echo $this->get_field_id('newwindow'); ?>" name="<?php echo $this->get_field_name('newwindow'); ?>" <?php checked( 'checked', $instance['newwindow'] ); ?> value="checked" /><label for="<?php echo $this->get_field_id('newwindow'); ?>">Open link in new window or tab</label><br /><span class="description"><small>Adds the <code>target="_blank"</code> attribute to the link.</small></span>
-			</p>
+			<!--p>
+				<input type="checkbox" id="<?php echo $this->get_field_id('center'); ?>" name="<?php echo $this->get_field_name('center'); ?>" <?php checked( 'checked', $instance['center'] ); ?> value="checked" /><label for="<?php echo $this->get_field_id('center'); ?>">Center the banner</label><br /><span class="description"><small>Resize image to fit the specified image dimensions. <em>Note:</em> This option only works if the Width and Height fields have been specified.</small></span>
+			</p-->
+
+			<?php if( $instance['errors']['resize'] ) : ?>
+				<p style="background: #FFEBE8; border: 1px solid #CC0000; padding: 3px; font-size: 90%;">Resize option requires the Image Dimensions option <strong>Width</strong> and <strong>Height</strong> set to a valid value. And value must also be greater than 0.</p>
+			<?php endif; ?>
 			
 		</div>
 
@@ -191,7 +216,8 @@ class Squar_Banner_Item_Widget extends WP_Widget{
 	
 		$instance = $old_instance;
 		
-		//$instance = $new_instance;
+		unset( $instance['errors'] );
+		$instance['errors'] = array();
 		
 		$instance['title'] = esc_html( $new_instance['title'] );
 		$instance['heading'] = esc_html( $new_instance['heading'] );
@@ -203,17 +229,18 @@ class Squar_Banner_Item_Widget extends WP_Widget{
 		$instance['html_code'] = $new_instance['html_code'];
 		$instance['enable_html_code'] = $new_instance['enable_html_code'] == 'checked' ? $new_instance['enable_html_code'] : '' ;
 		$instance['resize'] = $new_instance['resize'] == 'checked' ? $new_instance['resize'] : '' ;
+		$instance['resize_mode'] = intval( $new_instance['resize_mode'] );
 		$instance['newwindow'] = $new_instance['newwindow'] == 'checked' ? $new_instance['newwindow'] : '' ;
-		$instance['centerimage'] = $new_instance['centerimage'];
+		$instance['center'] = $new_instance['center'] == 'checked' ? $new_instance['center'] : '';
 
 		//check if requirements for Resize Option are met
 		if( !empty( $instance['resize'] ) ){
 			if( empty( $instance['image_height'] ) || empty( $instance['image_width'] ) ){
 				$instance['errors'] = array( 'resize' => true );
-				$instance['resize'] = '';
+				//$instance['resize'] = '';
 			}
 		}
-
+		
 		return $instance;
 	}
 	
@@ -221,7 +248,9 @@ class Squar_Banner_Item_Widget extends WP_Widget{
 		extract( $args );
 		
 		$out = '';
-
+		
+		if( $instance['errors'] ) return;
+		
 		/* Check if the Image File is specified. */
 		if( empty( $instance['image_url'] ) ){
 
