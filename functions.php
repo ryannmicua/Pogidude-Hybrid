@@ -19,6 +19,9 @@ function theme_name_setup() {
 
 	//DEFINE CONSTANTS
 	require_once( 'functions-constants.php' );
+
+	//LOAD THEME SETTINGS
+	require_once( trailingslashit( THEME_ADMIN_DIR ) . 'theme-settings.php' );
 	
 	/* ADD THEME SUPPORT FOR CORE FRAMEWORK FEATURES */
 	add_theme_support( 'hybrid-core-menus', array( 'primary', 'secondary' ) );
