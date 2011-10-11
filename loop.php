@@ -5,6 +5,8 @@
  * @package Pogidude
  * @subpackage Template
  */
+
+$textdomain = hybrid_get_textdomain();
 ?>
 
 <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>

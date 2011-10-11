@@ -171,7 +171,7 @@ function hybrid_about_theme_meta_box( $object, $box ) {
 
 global $hybrid;
 
-echo $hybrid->settings_page;
+	echo $hybrid->settings_page . ' Located in THEMEDIR/hybrid-core/admin/theme-settingsphp';
 
 	/* Get theme information. */
 	$prefix = hybrid_get_prefix();

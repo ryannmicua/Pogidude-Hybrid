@@ -12,11 +12,13 @@
  * @param array $args 
  * @param string|bool $value Custom field value.
  */
-function pogi_meta_box_text( $args = array(), $value = false ) { ?>
+function pogi_meta_box_text( $args = array(), $value = false ) { 
+	$size = empty( $args['options']['size'] ) ? 'size="30"' : 'size="' . $args['options']['size'] . '"';
+	$tabindex = empty( $args['options']['tabindex'] ) ? '' : 'tabindex="' . $args['options']['tabindex'] . '"';?>
 	<p>
 		<label for="<?php echo $args['id']; ?>"><?php echo $args['title']; ?></label>
 		<br />
-		<input type="text" name="<?php echo $args['id']; ?>" id="<?php echo $args['id']; ?>" value="<?php echo esc_attr( $value ); ?>" size="30" tabindex="30" style="width: 99%;" />
+		<input type="text" name="<?php echo $args['id']; ?>" id="<?php echo $args['id']; ?>" value="<?php echo esc_attr( $value ); ?>" <?php echo $size; ?> />
 		<?php if ( !empty( $args['description'] ) ) echo '<br /><span class="howto">' . $args['description'] . '</span>'; ?>
 	</p>
 	<?php
@@ -33,7 +35,7 @@ function pogi_meta_box_select( $args = array(), $value = false ) { ?>
 	<p>
 		<label for="<?php echo $args['id']; ?>"><?php echo $args['title']; ?></label>
 		<br />
-		<select name="<?php echo $args['id']; ?>" id="<?php echo $args['id']; ?>" style="min-width: 30%;">
+		<select name="<?php echo $args['id']; ?>" id="<?php echo $args['id']; ?>">
 			<option value="">--</option>
 			<?php if( !empty($args['options']) ){ ?>
 				<?php foreach ( $args['options'] as $option => $val ) { ?>
@@ -65,12 +67,13 @@ function pogi_meta_box_select( $args = array(), $value = false ) { ?>
  */
 function pogi_meta_box_textarea( $args = array(), $value = false ) {  
 	$cols = empty( $args['options']['cols'] ) ? '' : 'cols="' . $args['options']['cols'] . '"'; 
-	$rows = empty( $args['options']['rows'] ) ? '' : 'rows="' . $args['options']['rows'] . '"'; ?>
+	$rows = empty( $args['options']['rows'] ) ? '' : 'rows="' . $args['options']['rows'] . '"'; 
+	$tabindex = empty( $args['options']['tabindex'] ) ? '' : 'tabindex="' . $args['options']['tabindex'] . '"'; ?>
 	
 	<p>
 		<label for="<?php echo $args['id']; ?>"><?php echo $args['title']; ?></label>
 		<br />
-		<textarea name="<?php echo $args['id']; ?>" id="<?php echo $args['id']; ?>" <?php echo $cols; ?> <?php echo $rows; ?> tabindex="30" style="width: 99%;"><?php echo esc_html( $value ); ?></textarea>
+		<textarea name="<?php echo $args['id']; ?>" id="<?php echo $args['id']; ?>" <?php echo $cols; ?> <?php echo $rows; ?> <?php echo $tabindex; ?> ><?php echo esc_html( $value ); ?></textarea>
 		<?php if ( !empty( $args['description'] ) ) echo '<br /><span class="howto">' . $args['description'] . '</span>'; ?>
 	</p>
 	<?php
@@ -88,11 +91,29 @@ function pogi_meta_box_radio( $args = array(), $value = false ) { ?>
 		<?php echo $args['title']; ?>
 		<?php foreach ( $args['options'] as $option => $val ) { ?>
 			<br />
-			<input type="radio" name="<?php echo $args['id']; ?>" value="<?php echo esc_attr( $option ); ?> <?php checked( esc_attr( $value ), esc_attr( $option ) ); ?> />
+			<input type="radio" id="<?php echo $args['id']; ?>" name="<?php echo $args['id']; ?>" value="<?php echo esc_attr( $option ); ?> <?php checked( esc_attr( $value ), esc_attr( $option ) ); ?> />
 		<?php } ?>
-		<?php if ( !empty( $args['description'] ) ) echo '<br /><span class="howto">' . $args['description'] . '</span>'; ?>
+		<?php if ( !empty( $args['description'] ) ) echo '<br /><span class="howto">' . $args['description'] . "</span>"; ?>
 	</p>
 	<?php
+}
+
+/**
+ * Outputs a checkbox for use with the post meta box
+ *
+ * @param array $args
+ * @param string|bool $value Custom field value
+ */
+function pogi_meta_box_checkbox( $args = array(), $value = false ){ 
+?>
+	<p>
+		<label for="<?php echo $args['id']; ?>" ><?php echo $args['title']; ?></label>
+		<br />
+		<input type="checkbox" id="<?php echo $args['id']; ?>" name="<?php echo $args['id']; ?>" value="checked" <?php checked( 'checked', $value ); ?> />
+		<?php if( !empty( $args['description']) ) : ?><label for="<?php echo $args['id']; ?>" style="display: inline;" class="howto"><?php echo $args['description']; ?></label><?php endif; ?>
+	</p>
+
+<?php
 }
 
 /**
@@ -137,7 +158,7 @@ function pogi_meta_box_groupclose( $args = array(), $value = false ){ ?>
 /**
  * Wrapper function for pogi_meta_box_{field-type}. Prints out the fields.
  *
- * @param array $fieldgroup is an array of arrays with each array containing the setting for each form field
+ * @param array $fieldgroup a 1D array of arrays with each array containing the setting for each form field
  * @param int $post_id (optional) defaults to current Post object id
  * @return none - fields are echoed directly to the standard output
  */

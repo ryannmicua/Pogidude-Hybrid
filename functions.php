@@ -35,6 +35,7 @@ function theme_name_setup() {
 	/* ADD THEME SUPPORT FOR FRAMEWORK EXTENSIONS */
 	//add_theme_support( 'breadcrumb-trail' );
 	add_theme_support( 'loop-pagination' );
+	add_theme_support( 'get-the-image' );
 	
 	/* Setup Theme Options Page */
 	
@@ -46,10 +47,8 @@ function theme_name_setup() {
 	/* ADD CUSTOM POST TYPES */
 
 	/* SETUP ACTIONS */
+	remove_action('wp_head', 'wp_generator'); //hide wordpress version
 
-	/* Register Widget Areas */
-	//add_action( 'widgets_init', 'theme_widgets_init' );
-	
 	/* SETUP FILTERS */
 	
 	/* SHORTCODES */
@@ -63,7 +62,10 @@ function theme_name_setup() {
 	//add_action( 'wp_print_styles', 'theme_queue_css' );
 	
 	/* REGISTER SIDEBARS */
-	//add_action( 'widgets_init', 'name_widgets_init' );
+	//add_action( 'widgets_init', 'theme_widgets_init' );
+	
+	/* REGISTER WIDGETS */
+	//include_once( trailingslashit( THEMELIB_FUNCTIONS ) . 'widgets.php' );
 	
 	/* REGISTER ADDITIONAL MENUS */
 	//add_action( 'init', 'register_footer_menu' );

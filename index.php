@@ -41,7 +41,7 @@
 			
 				<div id="content">
 					<div class="hfeed">
-						<?php get_template_part('loop'); ?>
+						<?php get_template_part('loop', get_post_format() ); ?>
 					</div><!-- .hfeed -->
 				</div><!-- #content -->
 				

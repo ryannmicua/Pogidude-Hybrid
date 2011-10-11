@@ -18,21 +18,21 @@
 	//define( 'THEME_ADMIN_DIR', THEME_DIR . '/admin' );
 
 	//sets the path to the theme library directory
-	//define( 'MOBILITY_DIR', THEME_DIR . '/library' );
+	//define( 'THEMELIB_DIR', THEME_DIR . '/library' );
 	
 	//sets the path to the theme library directory URI
-	//define( 'MOBILITY_URI', THEME_URI . '/library' );
+	//define( 'THEMELIB_URI', THEME_URI . '/library' );
 	
 	//sets the path to the theme library functions directory
-	//define( 'MOBILITY_FUNCTIONS', MOBILITY_DIR . '/functions' );
+	//define( 'THEMELIB_FUNCTIONS', THEMELIB_DIR . '/functions' );
 	
 	//sets the path to the theme library classes directory
-	//define( 'MOBILITY_CLASSES', MOBILITY_DIR . '/classes');
+	//define( 'THEMELIB_CLASSES', THEMELIB_DIR . '/classes');
 	
 	//sets the path to the theme library scripts directory
-	//define( 'MOBILITY_SCRIPTS', MOBILITY_DIR . '/scripts');
+	//define( 'THEMELIB_SCRIPTS', THEMELIB_DIR . '/scripts');
 	
 	//sets the path to the theme library scripts directory URI
-	//define( 'MOBILITY_SCRIPTS_URI', MOBILITY_URI . '/scripts' );
+	//define( 'THEMELIB_SCRIPTS_URI', THEMLIB_URI . '/scripts' );
 	
 ?>
