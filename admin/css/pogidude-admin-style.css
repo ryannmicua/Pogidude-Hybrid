@@ -1,0 +1,18 @@
+/****
+ * Styles used in admin pages when using Pogidude stuff
+ */
+.clear{ clear: both; }
+
+/** PRINT FIELDS **/
+.pogidude-field{ margin: 6px 0 10px; }
+	.pogidude-field .label{ border-bottom: 1px solid #ccc; display: block; font-weight: bold; padding: 10px 0; margin: 0 0 10px; }
+	.pogidude-field .option{}
+		.pogidude-field .controls{ float: left; padding-right: 2%; min-width: 250px; width: 50%; }
+			.pogidude-field .controls input, .pogidude-field .controls select, .pogidude-field .controls textarea{ margin-bottom: 10px; width: 100%; }
+			.pogidude-field .controls input[type="button"]{ background: url("../images/white-grad.png") repeat-x 0 0 #F2F2F2; width: auto; }
+		.pogidude-field .description{ float: left; font-style: italic; line-height: 1.5; max-width: 38%; }
+		
+		
+	/* wpupload field */
+	.pogidude-wpupload .controls input[type="text"]{ width: 80%; }
+	.pogidude-wpupload .controls input[type="button"]{ }

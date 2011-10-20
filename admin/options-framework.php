@@ -170,8 +170,10 @@ function optionsframework_setdefaults() {
 if ( !function_exists( 'optionsframework_add_page' ) ) {
 function optionsframework_add_page() {
 	
-	$of_page = add_menu_page('Theme Options', 'Theme Options', 'edit_theme_options', 'options-framework','optionsframework_page', OPTIONS_FRAMEWORK_DIRECTORY . '/images/icon-theme-settings.png' , 61); //position the menu after the "Appearance" menu
+	global $of_page;
 	
+	$of_page = add_menu_page('Theme Options', 'Theme Options', 'edit_theme_options', 'options-framework','optionsframework_page', OPTIONS_FRAMEWORK_DIRECTORY . '/images/icon-theme-settings.png' , 61); //position the menu after the "Appearance" menu
+
 	// Adds actions to hook in the required css and javascript
 	add_action("admin_print_styles-$of_page",'optionsframework_load_styles');
 	add_action("admin_print_scripts-$of_page", 'optionsframework_load_scripts');

@@ -7,9 +7,9 @@
  */
 
 if ( is_admin() ) {
-	
+	global $of_page;
 	// Load additional css and js for image uploads on the Options Framework page
-	$of_page= 'appearance_page_options-framework';
+	//$of_page= 'appearance_page_options-framework';
 	add_action( "admin_print_styles-$of_page", 'optionsframework_mlu_css', 0 );
 	add_action( "admin_print_scripts-$of_page", 'optionsframework_mlu_js', 0 );	
 }

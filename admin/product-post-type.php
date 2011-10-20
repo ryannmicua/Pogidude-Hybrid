@@ -8,7 +8,12 @@ define('DOG_PRODUCT_JS', trailingslashit( THEME_ADMIN_URI ) . 'js' );
 
 $textdomain = hybrid_get_textdomain();
 
-require_once( trailingslashit( THEMELIB_FUNCTIONS ) . 'print-field.php' );
+require_once( trailingslashit( THEME_ADMIN_DIR ) . 'admin-print-field.php' );
+//path to css for pogidude admin stylesheet
+$pogidude_admin_stylesheet = trailingslashit( THEME_ADMIN_URI ) . 'css/pogidude-admin-style.css';
+//register pogidude admin stylesheet
+wp_register_style( 'pogidude-admin-stylesheet', $pogidude_admin_stylesheet );
+
 
 //add theme support for post thumbnails just in case it's not activated
 add_theme_support( 'post-thumbnails' );
@@ -43,6 +48,8 @@ add_filter('enter_title_here', 'bulldog_product_enter_title_here' );
 add_filter("manage_edit-product_columns", "bulldog_product_edit_columns");
 add_action("manage_posts_custom_column",  "bulldog_product_columns_display", 10, 2);
 
+//modify the query $request
+add_filter( 'pre_get_posts', 'bulldog_product_alter_the_query' );
 
 function bulldog_product_menus_init(){
 	 add_submenu_page('edit.php?post_type=product', 'Reorder Product Page', 'Reorder Products', 'edit_posts', 'sort-product-pages', 'bulldog_product_sort_menu_page');
@@ -56,7 +63,8 @@ function bulldog_product_posttype() {
 	$textdomain = hybrid_get_textdomain();
 	
 	$labels = array(
-		'name' => __( 'The Store', $textdomain ),
+		'name' => __( 'Product Pages', $textdomain ),
+		'menu_name' => __( 'The Store', $textdomain ),
 		'all_items' => __('Product Pages', $textdomain ),
 		'singular_name' => __( 'Product Page', $textdomain ),
 		'add_new' => __( 'Add New', $textdomain ),
@@ -178,6 +186,12 @@ function bulldog_product_fields( $field_group = '' ){
 											'type' => 'wpupload',
 											'id' => 'bulldog-product-pdf',
 											'description' => 'click on the "Upload Button"'
+									),
+									array( 	'title' => 'Short Product Description',
+											'type' => 'textarea',
+											'id' => 'bulldog-product-description',
+											'description' => 'Enter a short product description to display on Producat Category pages.',
+											'options' => array( 'cols' => 60, 'rows'=> 6 )
 									)
 									
 									/*
@@ -347,6 +361,34 @@ function bulldog_get_product_price( $item_number ){
 }
 
 /**
+ * Product Excerpt. Use in the Loop
+ */
+function bulldog_product_excerpt( $charlength = 100, $ender = null ){
+	
+	$charlength++;
+	$out = '';
+	$str = get_the_excerpt();
+		
+	if( strlen( $str ) > $charlength ){
+		$subex = substr($str,0,$charlength-5);
+       	$exwords = explode(" ",$subex);
+		$excut = -(strlen($exwords[count($exwords)-1]));
+		if( $excut < 0 ){
+			$out = substr( $subex, 0, $excut );
+		} else {
+			$out = $subex;
+		}
+		
+		$out .= isset( $ender ) ? $ender : '...' ;
+		
+	} else {
+		$out = $str;
+	}
+	
+	return $out;
+}
+
+/**
  * Get the product image
  *
  * @param string $post_id
@@ -423,8 +465,11 @@ function bulldog_product_print_scripts(){
 	wp_register_script('bulldog-product-uploadjs', trailingslashit( DOG_PRODUCT_JS ) . 'admin-product-upload.js', array('jquery','thickbox','media-upload' ), "1.0" );
 	wp_register_script('ca-sort-product', trailingslashit( DOG_PRODUCT_JS ) . 'admin-product-sort.js', array( 'jquery-ui-sortable', 'jquery' ), "1.0" );
 	
-	//stop if not Admin page, $pagenow != "edit.php", post_type != "product"
-	if( !is_admin() ) return;
+	//stop if not Admin page, or post_type != product
+	if( !is_admin() || 'product' != get_post_type() ){ 
+		return;
+	}
+
 	wp_enqueue_script('thickbox');
 	wp_enqueue_script('media-upload');
 	wp_enqueue_script('bulldog-product-uploadjs');
@@ -433,6 +478,7 @@ function bulldog_product_print_scripts(){
 	if ('sort-product-pages' == $page ){
 		wp_enqueue_script('ca-sort-product' );
 	}
+	
 }
 
 /**
@@ -442,9 +488,10 @@ function bulldog_product_print_styles(){
 	global $pagenow, $typenow;
 	$pages = array('edit.php');
 	$page = $_GET['page'];
-
+	
 	//stop if not Admin page, $pagenow != "edit.php", post_type != "product"
-	if( !is_admin() || 'edit.php' != $pagenow || 'product' != $typenow ) return;
+	if( !is_admin() || 'product' != get_post_type() ) return;
+	wp_enqueue_style( 'pogidude-admin-stylesheet' );
 	
 	//stop if not in sort-product-pages page
 	if ('sort-product-pages' != $page ) return;
@@ -572,4 +619,20 @@ function bulldog_save_product_order(){
 		$counter++;
 	}
 	die(1);
+}
+
+/**
+ * Alter the request query for product category pages
+ */
+//add_filter( 'request', 'bulldog_alter_the_query' );
+//add_filter( 'pre_get_posts', 'bulldog_alter_the_query' );
+function bulldog_product_alter_the_query( $request ){
+	
+	$posts_per_page = of_get_option( 'shop_products_per_page' );
+	
+	if ( $request->is_tax( 'product-category' ) ){
+        $request->query_vars['posts_per_page'] = $posts_per_page;
+	}
+
+    return $request;
 }
