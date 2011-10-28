@@ -28,3 +28,14 @@ function clearTextField( field ){
 		}
 	});
 }
+
+
+/**
+ * Adds the class "last" to the last direct child of a parent element - ul > :last-child
+ */
+function addClassLast( parentEl, className ){
+	className = (typeof className == 'undefined') ? 'last' : className;
+	
+	parentEl.addClass(className);
+	
+}

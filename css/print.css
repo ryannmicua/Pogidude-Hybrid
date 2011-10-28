@@ -1,0 +1,27 @@
+.left, .alignleft { float: left; margin: 9px 12px 9px 0; }
+.right, .alignright { float: right; margin: 9px 0 9px 12px; }
+.center, .aligncenter { display: block; margin: 9px auto 9px; }
+.block, .alignnone { display: block; margin: 9px 0 9px; }
+.clear { clear: both; }
+
+body{ color: #000 !important; font-family: "Times New Roman", "Times", Georgia, serif; }
+#header{ display: none; }
+#feature-wrap{ display: none; }
+#header-bar{ display: none; }
+#sidebar-primary{ display: none; }
+#on-the-side{ display: none; }
+
+/** Content **/
+.page-meta{ display: none; }
+.share-post{ display: none; }
+.entry-title{ font-family: Helvetica, Arial, sans-serif; }
+.byline{ font-family: Helvetica, Arial, sans-serif; }
+.page-links{}
+.loop-nav{ display: none; }
+
+.product-image{ float: left; margin: 0 20px 10px 0; }
+.product-meta{ display: none; }
+
+#comments-template{ display: none; }
+
+#footer{}

@@ -240,5 +240,6 @@ function optionsframework_options() {
 						"std" => array('size' => '12px','face' => 'verdana','style' => 'bold italic','color' => '#123456'),
 						"type" => "typography");
 	*/
-	return $options;
+	//return $options;
+	return apply_filters( 'pogidude_of_option_array', $options );
 }

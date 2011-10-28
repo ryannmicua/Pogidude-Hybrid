@@ -33,6 +33,6 @@
 	//define( 'THEMELIB_SCRIPTS', THEMELIB_DIR . '/scripts');
 	
 	//sets the path to the theme library scripts directory URI
-	//define( 'THEMELIB_SCRIPTS_URI', THEMLIB_URI . '/scripts' );
+	//define( 'THEMELIB_SCRIPTS_URI', THEMELIB_URI . '/scripts' );
 	
 ?>
