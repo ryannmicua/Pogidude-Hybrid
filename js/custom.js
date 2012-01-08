@@ -1,5 +1,5 @@
 jQuery(document).ready( function(){
 	
-	/* Run clearTextField function on all selected text fields */
-	clearTextField( jQuery(".use-cleartext") );
+	// Start input/textarea jQuery *placeholder* support for browsers that don't support HTML5 parameter 
+	addPlaceHolderSupport();
 });

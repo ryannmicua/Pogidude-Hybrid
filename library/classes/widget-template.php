@@ -63,7 +63,7 @@ class Widget_Class_Name_Widget extends WP_Widget{
 		<p>
 			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:', $textdomain); ?></label>
 			<input type="text" name="<?php echo $this->get_field_name('title'); ?>"  value="<?php echo $title; ?>" class="widefat" id="<?php echo $this->get_field_id('title'); ?>" />
-			<em class="description"><small>Example: Title of the Widget</small></strong>
+			<em class="description"><small>Example: Title of the Widget</small></em>
 		</p>
 
 		<?php

@@ -22,16 +22,19 @@ function theme_name_setup() {
 
 	//LOAD THEME SETTINGS
 	require_once( trailingslashit( THEME_ADMIN_DIR ) . 'theme-settings.php' );
+
+	//LOAD THEME FUNCTIONS
+	require_once( trailingslashit( THEMELIB_DIR ) . 'functions/theme-functions.php' );
 	
 	/* ADD THEME SUPPORT FOR CORE FRAMEWORK FEATURES */
 	add_theme_support( 'hybrid-core-menus', array( 'primary', 'secondary' ) );
 	add_theme_support( 'hybrid-core-sidebars', array( 'primary' ) );
 	add_theme_support( 'hybrid-core-widgets' );
 	add_theme_support( 'hybrid-core-shortcodes' );
-	add_theme_support( 'hybrid-core-post-meta-box' );
-	add_theme_support( 'hybrid-core-theme-settings' );
+	//add_theme_support( 'hybrid-core-post-meta-box' );
+	//add_theme_support( 'hybrid-core-theme-settings' );
 	//add_theme_support( 'hybrid-core-meta-box-footer' );
-	add_theme_support( 'hybrid-core-drop-downs' );
+	//add_theme_support( 'hybrid-core-drop-downs' );
 	//add_theme_support( 'hybrid-core-seo' );
 	add_theme_support( 'hybrid-core-template-hierarchy' );
 	

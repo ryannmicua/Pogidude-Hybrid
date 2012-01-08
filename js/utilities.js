@@ -39,3 +39,26 @@ function addClassLast( parentEl, className ){
 	parentEl.addClass(className);
 	
 }
+
+/**
+ * Start input/textarea jQuery *placeholder* support for browsers that don't support HTML5 parameter 
+ */
+function addPlaceHolderSupport(){
+		if(!jQuery.support.placeholder) { 
+			var active = document.activeElement;
+			jQuery(':text').focus(function () {
+				if (jQuery(this).attr('placeholder') != '' && jQuery(this).val() == jQuery(this).attr('placeholder')) {
+					jQuery(this).val('').removeClass('hasPlaceholder');
+				}
+			}).blur(function () {
+				if (jQuery(this).attr('placeholder') != '' && (jQuery(this).val() == '' || jQuery(this).val() == jQuery(this).attr('placeholder'))) {
+					jQuery(this).val(jQuery(this).attr('placeholder')).addClass('hasPlaceholder');
+				}
+			});
+			jQuery(':text').blur();
+			jQuery(active).focus();
+			jQuery('form').submit(function () {
+				jQuery(this).find('.hasPlaceholder').each(function() { jQuery(this).val(''); });
+			});
+		}
+}

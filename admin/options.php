@@ -56,68 +56,12 @@ function optionsframework_options() {
 	foreach ($options_pages_obj as $page) {
     	$options_pages[$page->ID] = $page->post_title;
 	}
-	
-	//Pull all posts into an array
-	$options_posts = array();
-	$options_posts_obj = get_posts( array( 'numberposts' => -1 ) );
-	$options_posts[''] = 'Select an article:';
-	foreach( $options_posts_obj as $apost ){
-		$options_posts[ $apost->ID ] = $apost->post_title;
-	}
-	
+		
 	// If using image radio buttons, define a directory path
-	$imagepath =  get_bloginfo('stylesheet_directory') . '/images/';
+	$imagepath = OPTIONS_FRAMEWORK_DIRECTORY . '/images/';
 		
 	$options = array();
-
-	$options[] = array( "name" => "General Settings",
-						"type" => "heading");
-
-	$options[] = array( "name" => "Homepage Featured Article",
-						"desc" => "Select an article to feature on the homepage. The article summary will be displayed beside the homepage slider.",
-						"id" => "feature_post_id",
-						"std" => "",
-						"type" => "select",
-						"options" => $options_posts);
-						
-	$options[] = array( "name" => "Promo Bar",
-						"desc" => "The Promo Bar is the small gray strip just below the slider on the homepage or below the image banner on other pages.",
-						"type" => "info");
-						
-	$options[] = array( "name" => "Promo Bar Label",
-						"desc" => "This label is the left-most text on the Promo Bar. Default value: Product Update!",
-						"id" => "promo_bar_label",
-						"std" => "Product Update!",
-						"type" => "text");
-
-	$options[] = array( "name" => "Promo Bar Text",
-						"desc" => "This the text on the center text of the Promo Bar.",
-						"id" => "promo_bar_text",
-						"std" => "<strong>Free Shipping</strong> on orders over $99.",
-						'sanitize' => false,
-						"type" => "text");
-						
-	$options[] = array( "name" => "Promo Bar Link URL",
-						"desc" => "Enter a valid URL address here. Clicking on the Learn More button will take the user to the url address specified here.<br /> <em>(http://yoursite.com/learn-more-page)</em>",
-						"id" => "promo_bar_url",
-						"std" => "",
-						"type" => "text");
-
-	$options[] = array( "name" => "Shop Settings",
-						"type" => "heading");
-						
-	$options[] = array( "name" => "Shopping Cart URL",
-						"desc" => "Specify the URL address of your shopping cart. (http://yoursite.com/store/cart)",
-						"id" => "shop_cart_url",
-						"std" => site_url('store/cart'),
-						"type" => "text");
-						
-	$options[] = array( "name" => "Checkout Page URL",
-						"desc" => "Specify the URL address of your checkout page. (http://yoursite.com/store/checkout)",
-						"id" => "shop_checkout_url",
-						"std" => site_url('store/checkout'),
-						"type" => "text");
-	/*
+		
 	$options[] = array( "name" => "Basic Settings",
 						"type" => "heading");
 							
@@ -238,8 +182,6 @@ function optionsframework_options() {
 						"desc" => "Example typography.",
 						"id" => "example_typography",
 						"std" => array('size' => '12px','face' => 'verdana','style' => 'bold italic','color' => '#123456'),
-						"type" => "typography");
-	*/
-	//return $options;
+						"type" => "typography");			
 	return apply_filters( 'pogidude_of_option_array', $options );
 }
