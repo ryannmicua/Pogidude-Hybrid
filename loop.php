@@ -16,7 +16,7 @@ $textdomain = hybrid_get_textdomain();
 		<?php if( is_archive() || is_search() || is_home() )  : ?>
 			<h2 class="entry-title"><a rel="bookmark" href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2>
 		<?php else: ?>
-			<h1 class="entry-title"><?php the_title(); ?></h2>
+			<h1 class="entry-title"><?php the_title(); ?></h1>
 		<?php endif; ?>
 		
 		<?php echo apply_atomic_shortcode( 'byline', '<div class="byline">' . get_the_time( esc_attr__( 'F jS, Y, g:i A', $textdomain ) ) . __( ' By [entry-author] [entry-edit-link before=" | "]', $textdomain ) . '</div>' ); ?>

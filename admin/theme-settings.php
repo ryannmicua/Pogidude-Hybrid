@@ -10,10 +10,10 @@ define('OPTIONS_FRAMEWORK_DIRECTORY', trailingslashit( THEME_ADMIN_URI ) );
 require_once (OPTIONS_FRAMEWORK_URL . 'options-framework.php');
 
 add_action( 'admin_menu', 'theme_admin_setup' );
-add_action( 'admin_init', 'theme_admin_register_scripts' );
-add_action( 'admin_init', 'theme_admin_register_styles' );
-add_action( 'admin_init', 'theme_admin_print_styles' );
-add_action( 'admin_init', 'theme_admin_print_scripts' );
+add_action( 'admin_enqueue_scripts', 'theme_admin_register_scripts' );
+add_action( 'admin_enqueue_scripts', 'theme_admin_register_styles' );
+add_action( 'admin_enqueue_styles', 'theme_admin_print_styles' );
+add_action( 'admin_enqueue_styles', 'theme_admin_print_scripts' );
 
 function theme_admin_setup(){
 

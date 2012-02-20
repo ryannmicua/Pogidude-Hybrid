@@ -60,11 +60,11 @@ function theme_name_setup() {
 	/* SHORTCODES */
 	
 	/* REGISTER/QUEUE JAVASCRIPT */
-	//theme_register_js();
+	//add_action( 'wp_enqueue_scripts', 'theme_register_js' );
 	//add_action( 'wp_print_scripts', 'theme_queue_js' );
 	
 	/* REGISTER/QUEUE STYLES */
-	//theme_register_css();
+	//add_action('wp_enqueue_styles', 'theme_register_css' );
 	//add_action( 'wp_print_styles', 'theme_queue_css' );
 	
 	/* REGISTER SIDEBARS */

@@ -1,7 +1,0 @@
-jQuery(document).ready(function(){
-
-	jQuery("#Date").datepicker({
-		//dateFormat : '@'
-		dateFormat : 'yymmdd'
-	});
-});

@@ -1,6 +1,6 @@
 jQuery(document).ready(function(){
 
-	jQuery("#Date").datepicker({
+	jQuery("#tm-event-date").datepicker({
 		//dateFormat : '@'
 		dateFormat : 'yy-mm-dd'
 	});

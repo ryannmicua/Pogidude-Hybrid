@@ -9,10 +9,7 @@ Tags: non-profit
 */
 
 /* CSS Reset Meyer */
-@import url('css/reset.dev.css' );
-
-/* Basic Stylesheet */
-@import url('css/basic.dev.css' );
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;}/* remember to define focus styles! */:focus{outline:0;}body{line-height:1;color:#000;background:#FFF;}ol,ul{list-style:none;}/* tables still need 'cellspacing="0"' in the markup */table{border-collapse:separate;border-spacing:0;}caption,th,td{text-align:left;font-weight:400;}blockquote:before,blockquote:after,q:before,q:after{content:"";}blockquote,q{quotes:;}
 
 /*@import url('hybrid-core/css/reset.css');  */
 
@@ -36,8 +33,170 @@ Tags: non-profit
 /*@import url('hybrid-core/css/gallery.css');*/
 
 
+body{ color: #433932; font: 13px/1.4 Arial, sans-serif; }
+/***************************************
+* Elements
+****************************************/
 
-body{ font: 12px/18px "Lucida Sans Unicode", "Lucida Grande", Arial, sans-serif; }
+/* Hyperlinks */
+a{ color: #0095DA; text-decoration: none; }
+/* a:link { } */
+a:visited {  }
+a:hover { text-decoration: underline; }
+a:active {  }
+
+/* Headers */
+h1, h2, h3, h4, h5, h6{ }
+h1 { font-size: 24px; font-weight: bold; line-height: 1.2; margin: 0.4em 0 0.6em; }
+h2 { font-size: 18px; font-weight: bold; line-height:1.2; margin: 0.5em 0 0.8em; }
+h3 { font-size: 16px; font-weight: bold; margin: 0.5em 0 0.8em; }
+h4 { font-size: 14px; font-weight: bold; margin: 0 0 0.1em; }
+h5 { font-size: 13px; font-weight: bold; }
+h6 {}
+
+/* Text elements */
+strong { font-weight: bold; }
+em { font-style: italic; }
+cite { font-style: italic; }
+abbr { cursor: help; text-decoration: underline; }
+acronym {}
+sup { vertical-align: baseline;	position: relative;	bottom: 0.3em;}
+sub { vertical-align: baseline;	position: relative;	top: 0.3em;}
+address { font-style: italic; margin: 0 0 18px 0;}
+ins, dfn{font-style: italic; text-decoration: none; border-bottom: 1px solid #666; }
+ins {}
+dfn {}
+del {text-decoration: line-through;}
+big {font-size: 120%;}
+small, sup, sub{font-size: 80%;}
+var{ font-family: monospace;}
+
+/* Paragraphs */
+p { }
+
+/* Unordered lists */
+ul { list-style: square outside none; padding-left: 14px; }
+	ul li {}
+
+/* Ordered lists */
+ol { list-style-type: decimal; margin: 0 0 18px 30px; }
+	ol ol{ list-style-type: upper-roman; }
+		ol ol ol{ list-style-type: lower-roman; }
+			ol ol ol ol{ list-style-type: upper-alpha; }
+				ol ol ol ol ol{ list-style-type: lower-alpha; }
+	ol li {}
+
+ul ul, ol ol, ul ol, ol ul{ margin-bottom: 0; }
+
+/* Defition lists */
+dl { margin: 0 0 18px 3px;  }
+	dt { font-weight: bold; margin: 12px 0 0 0; }
+	dd {  margin: 6px 0 0 1.5em; }
+
+/* Blockquotes */
+blockquote:before, blockquote:after,
+q:before, q:after { content: ""; }
+blockquote, q{ quotes: "" ""; }
+blockquote { background: #eee; border-left: 3px solid #bbb; padding: 9px 36px 1px 9px; margin: 9px 36px 18px 36px; }
+	blockquote blockquote {}
+	blockquote em { font-style: italic; }
+
+/* Object */
+object { margin-bottom: 18px; }
+
+/* Horizontal Rule */
+hr{ margin: 18px 0; background: #aaa; height: 1px; width: 100%; display: block;}
+
+/* Code */
+code { font: .9em Monaco, monospace, Courier, "Courier New";  }
+pre { overflow: auto; font: .9em Monaco, monospace, Courier, "Courier New";	line-height: 18px; margin-bottom: 18px; padding: 9px; }
+pre code { font-size: 1em; }
+
+/* Tables */
+table { background: #fff; border-collapse: collapse;  border-left: 2px solid #999; border-right: 2px solid #999; border-spacing: 0; margin: 0 0 18px 0; width: 100%; }
+	caption { text-align: left; }
+	tr {}
+	tr.even{ background: #f5f5f5; }
+	tr.odd{ }
+	th { font-weight: bold; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; border-right: 1px solid #ccc; padding: 4px 2%; text-align: left; }
+	td { padding: 4px 2%; border-bottom: 1px solid #ccc; border-right: 1px solid #ccc; text-align: left; }
+
+/* Forms */
+/* Forms */
+form {}
+	input, textarea, select{ font-size: 100%; font-family: Arial, sans-serif; }
+	/* Style for unfocused fields */
+	input[type="text"], input[type="email"], input.field, textarea, .placeholder, .field{ box-shadow: none; border: 1px solid #999; padding: 4px 6px; color: #888; }
+	/* Style for focused fields */
+	input[type="text"]:focus, input[type="email"]:focus, input.field:focus, textarea:focus, .field:focus{ border: 1px solid #7a7a7a; color: #555; }
+	input[type="text"], input[type="email"], input.field{ width: 250px; }
+	textarea{ width: 97%; }
+	input[type="submit"], input[type="image"] { cursor: pointer; }
+	label {}
+	option {}
+	:focus{ outline: none; }
+
+/* Buttons */
+.button, input[type="button"], div.button a{ background: #0095DA; border: none; color: #fff; font-weight: bold; padding: 4px 8px; }
+.button:hover, input[type="button"]:hover, div.button a:hover{ background: #0079B3; }
+.button-red{}
+.button-blue{}
+
+/* Notes */
+.note {}
+
+/* Warnings/Alerts */
+.warning, .alert {}
+
+/* Errors */
+.error { background: #FFE9E3; border: 1px solid #F58061; color: #333; padding: 5px 6px; }
+
+/* Success */
+.success{ background: #EAFFE6; border: 1px solid #23DC00; color: #222; padding: 5px 6px; }
+
+/* Downloads */
+.download {}
+
+/* Alignment */
+.left, .alignleft { float: left; margin: 9px 12px 9px 0; }
+.right, .alignright { float: right; margin: 9px 0 9px 12px; }
+.center, .aligncenter { display: block; margin: 9px auto 9px; }
+.block, .alignnone { display: block; margin: 9px 0 9px; }
+.clear { clear: both; }
+
+/**
+* Images
+************************************************/
+
+/* Normal images */
+img {  }
+a img {}
+
+/* WP Smilies */
+img.wp-smiley {}
+
+/* Thumbnails */
+.thumbnail {}
+
+/* WP Captions [caption] */
+.wp-caption { background: #eee; border: 1px solid #ddd; padding: 5px 1px; text-align: center; }
+	.wp-caption img { }
+	.wp-caption p.wp-caption-text { margin: 0; text-align: center; }
+
+/* Gallery [gallery] */
+.gallery {}
+	.gallery img {}
+
+/* Avatars */
+.avatar {}
+
+/***********************
+	UTILITY CLASSES
+************************/
+.clear{clear: both;}
+.padder, .padded{ padding: 20px; }
+
+body{ }
 
 	#main-wrap{}
 	
@@ -53,7 +212,7 @@ body{ font: 12px/18px "Lucida Sans Unicode", "Lucida Grande", Arial, sans-serif;
 				#site-title a span {}
 		/* Site description/tagline */
 		#site-description {text-indent: -9999px;}
-	
+
 	/* Primary Menu */
 	#menu-primary{}
 		ul#menu-primary-items{}
@@ -72,7 +231,24 @@ body{ font: 12px/18px "Lucida Sans Unicode", "Lucida Grande", Arial, sans-serif;
 					#menu-primary ul.sub-menu li a:hover{  }
 					
 	
+/***********************
+	PAGED NAVIGATION
+***********************/
+/* Post Nav */
+.loop-nav{}
+	.loop-nav .previous{ float: left; width: 49%; }
+	.loop-nav .next{ float: right; width: 49%; text-align: right; }
+		.loop-nav span{ color: #666; }
+		
+/* Page Links */
+.page-links{ color: #666; }
 
+/* Pagination */
+.pagination, .paged-navigation{ clear: both; margin: 20px 0; overflow: hidden; }
+	.pagination .page-numbers, .paged-navigation .page-numbers{ background: #CA1042; color: #fff; float: left; padding: 2px 7px; margin-right: 5px; text-decoration: none; }
+	.pagination a.page-numbers:hover, .paged-navigation a.page-numbers:hover{ background: #F50043; }
+	.pagination .current, .paged-navigation .current{ background: #666; color: #fff; }
+	.pagination .dots, .paged-navigation .dots{ background: none; color: #666; }
 
 /***********************
 	FRONTPAGE
@@ -87,6 +263,42 @@ body{ font: 12px/18px "Lucida Sans Unicode", "Lucida Grande", Arial, sans-serif;
 /***********************
 	SIDEBAR
 ************************/
+
+/***********************
+	COMMENTS
+***********************/
+#comments-template{}
+	#comments{}
+		#comments-number{ color: #444; margin-bottom: 15px; }
+		.comment-list{ list-style: none outside none; }
+		
+	/** Comment */
+	li.comment{overflow: hidden; }
+	li.depth-1{ background: #f5f5f5; border: 1px solid #ddd; padding: 20px; margin-bottom: 20px; }
+		li.comment .author-avatar{ float: left; margin: 0 10px 20px 0; }
+			li.comment .author-avatar img{ display: block; }
+		li.comment .comment-author{ overflow: hidden; }
+		li.comment .comment-meta{ overflow: hidden; }
+			li.comment .comment-meta a{ color: #555; font-style: italic; font-size: 95%; }
+			li.comment .comment-meta a:hover{ color: #CA1042; }
+		li.comment .comment-text{ overflow: hidden; }
+			li.comment .comment-text div.reply{}
+				li.comment .comment-text a.comment-reply-link{}
+				
+	ol.children{ list-style: none outside none; margin: 20px 0 0 58px; }
+		ol.children ol.children{ margin-right: 20px; }
+		.depth-2{ background: #fff; border: 1px solid #ddd; padding: 10px; margin-bottom: 20px; }
+			.depth-3{ background: #fcfcfc; border: 1px solid #eee; margin-bottom: 20px; padding: 10px; }
+		
+	/** Respond **/
+	#respond{ margin: 20px 0; }
+		#reply-title{ color: #444; margin-bottom: 10px; }
+		#commentform p{ overflow: hidden; }
+			#commentform p label{ float: left; width: 60px; }
+			#commentform p .text-input{ float: left; }
+		#commentform .form-submit{ overflow: hidden; }
+		#commentform #submit{ background: #555; border: none; color: #fff; float: left; padding: 5px 10px;}
+
 
 
 /***********************
