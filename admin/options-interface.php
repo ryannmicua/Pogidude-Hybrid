@@ -88,18 +88,56 @@ function optionsframework_fields() {
 		// Textarea
 		case 'textarea':
 			$cols = '8';
-			$ta_value = '';
+			$rows = '8';
+			$ta_value = array();
+			$editor_type = 'textarea';
 			
 			if(isset($value['options'])){
 				$ta_options = $value['options'];
 				if(isset($ta_options['cols'])){
 					$cols = $ta_options['cols'];
 				} else { $cols = '8'; }
+				if(isset($ta_options['rows'])){
+					$rows = $ta_options['rows'];
+				} else {
+					$rows = '10';
+				}
+				if(isset($ta_options['editor'] ) ){
+					$editor_type = ( $ta_options['editor'] == 'wp_editor' ) ? 'wp_editor' : 'textarea';
+				}
 			}
 			
 			$val = stripslashes( $val );
 			
-			$output .= '<textarea id="' . esc_attr( $value['id'] ) . '" class="of-input" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" cols="'. esc_attr( $cols ) . '" rows="8">' . esc_textarea( $val ) . '</textarea>';
+			//also check wp version if it is greater or equal to 3.3.
+			global $wp_version;
+			if( $editor_type == 'wp_editor' && version_compare( $wp_version, '3.3', '>=' ) ){
+				$editor_settings = array(
+					'textarea_name' => esc_attr( $option_name . '[' . $value['id'] . ']' ),
+					'textarea_rows' => esc_attr( $rows ),
+					'teeny' => true,
+					'tinymce' => array( 
+					//some examples: http://soderlind.no/archives/2011/09/25/front-end-editor-in-wordpress-3-3/
+					//see wp-includes/class-wp-editor.php #354
+						'wpautop' => false,
+						'remove_linebreaks' => false,
+						'apply_source_formatting' => true, 
+						'theme_advanced_buttons1' => 'formatselect,|,forecolor,bold,italic,underline,|,bullist,numlist,|,link,unlink,|,fullscreen',
+						'theme_advanced_buttons2' => '',
+						'theme_advanced_buttons3' => '',
+						'theme_advanced_buttons4' => ''
+					),
+				);
+				ob_start();
+				wp_editor( $val, esc_attr($value['id']), $editor_settings );
+				$output .= ob_get_contents();
+				ob_end_clean();
+				
+			} else {
+				$output .= '<textarea id="' . esc_attr( $value['id'] ) . '" class="of-input" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" cols="'. esc_attr( $cols ) . '" rows="' . esc_attr( $rows ) . '">' . esc_textarea( $val ) . '</textarea>';
+				
+			}
+			
 		break;
 		
 		// Select Box
@@ -146,7 +184,19 @@ function optionsframework_fields() {
 		
 		// Checkbox
 		case "checkbox":
-			$output .= '<input id="' . esc_attr( $value['id'] ) . '" class="checkbox of-input" type="checkbox" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" '. checked( $val, 1, false) .' />';
+			//for showing hidden options
+			$for_out = '';
+			if( isset( $value['for'] ) ){
+				if( is_array( $value['for'] ) ){
+					$for = implode( ',', $value['for'] );
+				} else {
+					$for = $value['for'];
+				}
+				if( !empty( $for ) ){
+					$for_out = 'for="' . $for . '"';
+				}
+			}
+			$output .= '<input id="' . esc_attr( $value['id'] ) . '" class="checkbox of-input" type="checkbox" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" '. checked( $val, 1, false) .' ' . $for_out . ' />';
 			$output .= '<label class="explain" for="' . esc_attr( $value['id'] ) . '">' . wp_kses( $explain_value, $allowedtags) . '</label>';
 		break;
 		

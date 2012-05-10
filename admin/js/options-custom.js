@@ -88,6 +88,31 @@ jQuery(document).ready(function($) {
 		}
 	}
 	
+	//unhide options. Only works for checkboxes
+	$( '.showhidden input' ).click( function(){
+		var $this = $(this);
+		//get value of "for" attribute then split into key/value array
+		var $hidden = $this.attr('for').split(',');
+		if( $this.is(":checked") ){
+			$.each( $hidden, function( $key, $value ){
+				$( '#section-'+$value ).fadeIn(400);
+			});
+		} else {
+			$.each( $hidden, function( $key, $value ){
+				$( '#section-'+$value ).fadeOut(400);
+			});
+		}
+	});
+	
+	//shows options when their control checkbox is checked
+	$( '.showhidden input:checked' ).each(function( index ){
+		var $this = $(this);
+		var $hidden = $this.attr('for').split(',');
+		$.each( $hidden, function( $key, $value ){
+			$('#section-'+$value).show();
+		});
+	});
+	
 	// Image Options
 	$('.of-radio-img-img').click(function(){
 		$(this).parent().parent().find('.of-radio-img-img').removeClass('of-radio-img-selected');

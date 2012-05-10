@@ -184,7 +184,9 @@ function optionsframework_add_page() {
 /* Loads the CSS */
 
 function optionsframework_load_styles() {
-	wp_enqueue_style('admin-style', OPTIONS_FRAMEWORK_DIRECTORY.'css/admin-style.css');
+	wp_enqueue_style('of-admin-style', OPTIONS_FRAMEWORK_DIRECTORY.'css/of-admin-style.css');
+	wp_enqueue_style('of-admin-style-alt', OPTIONS_FRAMEWORK_DIRECTORY.'css/of-admin-style-alt.css', array( 'of-admin-style' ) );
+	wp_enqueue_style( 'of-admin-style-custom', OPTIONS_FRAMEWORK_DIRECTORY.'css/of-admin-style-custom.css', array( 'of-admin-style' ) );
 	wp_enqueue_style('color-picker', OPTIONS_FRAMEWORK_DIRECTORY.'css/colorpicker.css');
 }	
 
@@ -225,27 +227,30 @@ function optionsframework_page() {
 	settings_errors();
 	?>
     
-	<div class="wrap">
-    <?php screen_icon( 'themes' ); ?>
-    <h2 class="nav-tab-wrapper">
-        <?php echo $return[1]; ?>
-    </h2>
-    
-    <div class="metabox-holder">
-    <div id="optionsframework" class="postbox">
-		<form action="options.php" method="post">
-		<?php settings_fields('optionsframework'); ?>
-
-		<?php echo $return[0]; /* Settings */ ?>
-        
-        <div id="optionsframework-submit">
-			<input type="submit" class="button-primary" name="update" value="<?php esc_attr_e( 'Save Options' ); ?>" />
-            <input type="submit" class="reset-button button-secondary" name="reset" value="<?php esc_attr_e( 'Restore Defaults' ); ?>" onclick="return confirm( '<?php print esc_js( __( 'Click OK to reset. Any theme settings will be lost!' ) ); ?>' );" />
-            <div class="clear"></div>
-		</div>
-	</form>
-</div> <!-- / #container -->
-</div>
+<div class="wrap">
+	<?php screen_icon( 'themes' ); ?>
+	
+	<div class="of-wrap of-alt">
+		<h2 class="nav-tab-wrapper">
+			<?php echo $return[1]; ?>
+		</h2>
+		
+		<div class="metabox-holder">
+			<div id="optionsframework" class="postbox">
+				<form action="options.php" method="post">
+					<?php settings_fields('optionsframework'); ?>
+			
+					<?php echo $return[0]; /* Settings */ ?>
+					
+					<div id="optionsframework-submit">
+						<input type="submit" class="button-primary" name="update" value="<?php esc_attr_e( 'Save Options' ); ?>" />
+						<input type="submit" class="reset-button button-secondary" name="reset" value="<?php esc_attr_e( 'Restore Defaults' ); ?>" onclick="return confirm( '<?php print esc_js( __( 'Click OK to reset. Any theme settings will be lost!' ) ); ?>' );" />
+						<div class="clear"></div>
+					</div>
+				</form>
+			</div> <!-- / #container -->
+		</div><!-- .metabox-holder -->
+	</div><!-- .of-wrap -->
 </div> <!-- / .wrap -->
 
 <?php
@@ -378,7 +383,7 @@ function optionsframework_adminbar() {
 		'parent' => 'appearance',
 		'id' => 'of_theme_options',
 		'title' => __( 'Theme Options' ),
-		'href' => admin_url( 'themes.php?page=options-framework' )
+		'href' => admin_url( 'admin.php?page=options-framework' )
   ));
 }
 

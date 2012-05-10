@@ -46,7 +46,7 @@ function theme_name_setup() {
 	/* Setup Theme Options Page */
 	
 	/* ADD THEME SUPPORT FOR WP FEATURES */
-	//add_theme_support( 'post-thumbnails' );
+	add_theme_support( 'post-thumbnails' );
 	//add_theme_support( 'automatic-feed-links' );
 	//add_theme_support( 'post-formats', array( 'aside', 'gallery' ) );
 	
@@ -60,8 +60,8 @@ function theme_name_setup() {
 	/* SHORTCODES */
 	
 	/* REGISTER/QUEUE JAVASCRIPT */
-	//add_action( 'wp_enqueue_scripts', 'theme_register_js' );
-	//add_action( 'wp_print_scripts', 'theme_queue_js' );
+	add_action( 'wp_enqueue_scripts', 'theme_register_js' );
+	add_action( 'wp_enqueue_scripts', 'theme_queue_js' );
 	
 	/* REGISTER/QUEUE STYLES */
 	//add_action('wp_enqueue_styles', 'theme_register_css' );

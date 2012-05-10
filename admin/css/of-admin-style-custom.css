@@ -1,0 +1,8 @@
+/**
+ * Custom Styles particular to this Theme Option Set only
+ */
+
+#optionsframework #section-slider_position.section .controls{
+	min-width: 200px;
+	width: 30%;
+}

@@ -61,7 +61,8 @@ function optionsframework_options() {
 	$imagepath = OPTIONS_FRAMEWORK_DIRECTORY . '/images/';
 		
 	$options = array();
-		
+	
+	/** Basic Settings **/
 	$options[] = array( "name" => "Basic Settings",
 						"type" => "heading");
 							
@@ -127,18 +128,29 @@ function optionsframework_options() {
 						"id" => "example_checkbox",
 						"std" => "1",
 						"type" => "checkbox");
-						
+	
+	/** Advanced Settings */
 	$options[] = array( "name" => "Advanced Settings",
 						"type" => "heading");
 						
 	$options[] = array( "name" => "Check to Show a Hidden Text Input",
 						"desc" => "Click here and see what happens.",
 						"id" => "example_showhidden",
+						"class" => "showhidden",
+						//enter the ID of options that this checkbox will unhide when checked.
+						"for" => array( "example_text_hidden", "example_text_hidden2" ),
 						"type" => "checkbox");
 	
 	$options[] = array( "name" => "Hidden Text Input",
 						"desc" => "This option is hidden unless activated by a checkbox click.",
 						"id" => "example_text_hidden",
+						"std" => "Hello",
+						"class" => "hidden",
+						"type" => "text");
+						
+	$options[] = array( "name" => "Hidden Text Input 2",
+						"desc" => "This option is hidden unless activated by a checkbox click.",
+						"id" => "example_text_hidden2",
 						"std" => "Hello",
 						"class" => "hidden",
 						"type" => "text");
