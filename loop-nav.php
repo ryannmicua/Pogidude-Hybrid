@@ -20,7 +20,7 @@
 	
 		<div class="loop-nav">
 			
-			<?php previous_post_link( '<div class="previous"><span>' . __( 'Previous Post ', hybrid_get_textdomain() ) . '</span>' . __('%link', hybrid_get_textdomain) . '</div>', '%title' ); ?>
+			<?php previous_post_link( '<div class="previous"><span>' . __( 'Previous Post ', hybrid_get_textdomain() ) . '</span>' . __('%link', hybrid_get_textdomain()) . '</div>', '%title' ); ?>
 			
 			<?php /*
 			<div class="previous">
@@ -29,7 +29,7 @@
 			</div>
 			*/ ?>
 			
-			<?php next_post_link( '<div class="next"><span>' . __( 'Next Post ', hybrid_get_textdomain() ) . '</span>' . __('%link', hybrid_get_textdomain) . '</div>', '%title' ); ?>
+			<?php next_post_link( '<div class="next"><span>' . __( 'Next Post ', hybrid_get_textdomain() ) . '</span>' . __('%link', hybrid_get_textdomain()) . '</div>', '%title' ); ?>
 			
 			<?php /*
 			<div class="next">
