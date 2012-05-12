@@ -276,7 +276,7 @@ body{ }
 	/** Comment */
 	li.comment{overflow: hidden; }
 	li.depth-1{ background: #f5f5f5; border: 1px solid #ddd; padding: 20px; margin-bottom: 20px; }
-		li.comment .author-avatar{ float: left; margin: 0 10px 20px 0; }
+		li.comment .author-avatar, li.has-avatar .author-avatar{ float: left; margin: 0 10px 20px 0; }
 			li.comment .author-avatar img{ display: block; }
 		li.comment .comment-author{ overflow: hidden; }
 		li.comment .comment-meta{ overflow: hidden; }
