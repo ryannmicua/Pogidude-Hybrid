@@ -31,8 +31,8 @@ add_action( 'admin_menu', 'bulldog_product_menus_init' );
 add_action( 'wp_ajax_save-product-order', 'bulldog_save_product_order' );
 
 //Enqueue product page specific scripts and styles
-add_action( 'admin_print_scripts', 'bulldog_product_print_scripts' );
-add_action( 'admin_print_styles', 'bulldog_product_print_styles' );
+add_action( 'admin_enqueue_scripts', 'bulldog_product_print_scripts' );
+add_action( 'admin_enqueue_scripts', 'bulldog_product_print_styles' );
 
 //Sort display in main product edit page
 add_filter('parse_query', 'bulldog_product_edit_column_order' );
@@ -508,6 +508,7 @@ function bulldog_product_edit_columns($product_columns){
 		"title" => _x('Product Name', 'column name'),
 		//"thumbnail" => __('Thumbnail', 'cleanaire'),
 		"product-category" => __('Category', 'cleanaire')
+
 	);
 
 	return $product_columns;

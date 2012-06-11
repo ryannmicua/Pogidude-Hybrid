@@ -32,7 +32,8 @@ function event_posttype_init(){
 	
 	add_action( "manage_event_posts_custom_column", "event_taxonomy_custom_column", 10, 2 );
 	
-	event_register_scripts_styles();
+	add_action( "init", 'event_register_scripts_styles' );
+	//event_register_scripts_styles();
 	add_action( "admin_print_scripts-post-new.php", 'mobility21_event_admin_enqueue_scripts_styles' );
 	add_action( "admin_print_styles-post-new.php", 'mobility21_event_admin_enqueue_styles' );
 	add_action( "admin_print_scripts-post.php", 'mobility21_event_admin_enqueue_scripts_styles' );

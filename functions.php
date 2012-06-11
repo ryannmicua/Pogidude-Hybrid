@@ -64,8 +64,8 @@ function theme_name_setup() {
 	add_action( 'wp_enqueue_scripts', 'theme_queue_js' );
 	
 	/* REGISTER/QUEUE STYLES */
-	//add_action('wp_enqueue_styles', 'theme_register_css' );
-	//add_action( 'wp_print_styles', 'theme_queue_css' );
+	//add_action( 'wp_enqueue_scripts', 'theme_register_css' );
+	//add_action( 'wp_enqueue_scripts', 'theme_queue_css' );
 	
 	/* REGISTER SIDEBARS */
 	//add_action( 'widgets_init', 'theme_widgets_init' );
