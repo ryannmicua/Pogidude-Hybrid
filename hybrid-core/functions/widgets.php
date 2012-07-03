@@ -7,6 +7,10 @@
  *
  * @package HybridCore
  * @subpackage Functions
+ * @author Justin Tadlock <justin@justintadlock.com>
+ * @copyright Copyright (c) 2008 - 2012, Justin Tadlock
+ * @link http://themehybrid.com/hybrid-core
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /* Unregister WP widgets. */
@@ -20,8 +24,10 @@ add_action( 'widgets_init', 'hybrid_register_widgets' );
  * widget by extending the available options of the widget.
  *
  * @since 0.6.0
+ * @access private
  * @uses register_widget() Registers individual widgets with WordPress
  * @link http://codex.wordpress.org/Function_Reference/register_widget
+ * @return void
  */
 function hybrid_register_widgets() {
 
@@ -85,8 +91,10 @@ function hybrid_register_widgets() {
  * aren't replaced by the framework widgets are not unregistered.
  *
  * @since 0.3.2
+ * @access private
  * @uses unregister_widget() Unregisters a registered widget.
  * @link http://codex.wordpress.org/Function_Reference/unregister_widget
+ * @return void
  */
 function hybrid_unregister_widgets() {
 

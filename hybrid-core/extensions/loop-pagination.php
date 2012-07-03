@@ -14,9 +14,9 @@
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @package LoopPagination
- * @version 0.1.3
+ * @version 0.1.5
  * @author Justin Tadlock <justin@justintadlock.com>
- * @copyright Copyright (c) 2010 - 2011, Justin Tadlock
+ * @copyright Copyright (c) 2010 - 2012, Justin Tadlock
  * @link http://devpress.com/blog/loop-pagination-for-theme-developers
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
@@ -26,11 +26,13 @@
  * search pages.  It is not for singular views.
  *
  * @since 0.1.0
+ * @access public
  * @uses paginate_links() Creates a string of paginated links based on the arguments given.
  * @param array $args Arguments to customize how the page links are output.
+ * @return string $page_links
  */
 function loop_pagination( $args = array() ) {
-	global $wp_rewrite, $wp_query, $post;
+	global $wp_rewrite, $wp_query;
 
 	/* If there's not more than one page, return nothing. */
 	if ( 1 >= $wp_query->max_num_pages )
@@ -62,8 +64,9 @@ function loop_pagination( $args = array() ) {
 	);
 
 	/* Add the $base argument to the array if the user is using permalinks. */
-	if( $wp_rewrite->using_permalinks() )
-		$defaults['base'] = user_trailingslashit( trailingslashit( get_pagenum_link() ) . 'page/%#%' );
+	if ( $wp_rewrite->using_permalinks() )
+		$defaults['base'] = str_replace( 2, '%#%', esc_url( get_pagenum_link( 2 ) ) );
+		//$defaults['base'] = user_trailingslashit( trailingslashit( get_pagenum_link() ) . 'page/%#%' );
 
 	/* If we're on a search results page, we need to change this up a bit. */
 	if ( is_search() ) {
@@ -98,7 +101,7 @@ function loop_pagination( $args = array() ) {
 	if ( $args['echo'] )
 		echo $page_links;
 	else
-		return $page_liks;
+		return $page_links;
 }
 
 ?>

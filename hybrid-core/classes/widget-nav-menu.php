@@ -6,44 +6,30 @@
  *
  * @package Hybrid
  * @subpackage Classes
+ * @author Justin Tadlock <justin@justintadlock.com>
+ * @copyright Copyright (c) 2008 - 2012, Justin Tadlock
+ * @link http://themehybrid.com/hybrid-core
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /**
  * Nav Menu Widget Class
  *
  * @since 0.8.0
- * @link http://themehybrid.com/themes/hybrid/widgets
  */
 class Hybrid_Widget_Nav_Menu extends WP_Widget {
 
 	/**
-	 * Prefix for the widget.
-	 * @since 0.8.0
-	 */
-	var $prefix;
-
-	/**
-	 * Textdomain for the widget.
-	 * @since 0.8.0
-	 */
-	var $textdomain;
-
-	/**
 	 * Set up the widget's unique name, ID, class, description, and other options.
+	 *
 	 * @since 1.2.0
 	 */
 	function __construct() {
 
-		/* Set the widget prefix. */
-		$this->prefix = hybrid_get_prefix();
-
-		/* Set the widget textdomain. */
-		$this->textdomain = hybrid_get_textdomain();
-
 		/* Set up the widget options. */
 		$widget_options = array(
 			'classname' => 'nav-menu',
-			'description' => esc_html__( 'An advanced widget that gives you total control over the output of your menus.', $this->textdomain )
+			'description' => esc_html__( 'An advanced widget that gives you total control over the output of your menus.', 'hybrid-core' )
 		);
 
 		/* Set up the widget control options. */
@@ -55,7 +41,7 @@ class Hybrid_Widget_Nav_Menu extends WP_Widget {
 		/* Create the widget. */
 		$this->WP_Widget(
 			'hybrid-nav-menu',				// $this->id_base
-			__( 'Navigation Menu', $this->textdomain ),	// $this->name
+			__( 'Navigation Menu', 'hybrid-core' ),	// $this->name
 			$widget_options,				// $this->widget_options
 			$control_options				// $this->control_options
 		);
@@ -63,28 +49,17 @@ class Hybrid_Widget_Nav_Menu extends WP_Widget {
 
 	/**
 	 * Outputs the widget based on the arguments input through the widget controls.
+	 *
 	 * @since 0.8.0
 	 */
-	function widget( $args, $instance ) {
-		extract( $args );
+	function widget( $sidebar, $instance ) {
+		extract( $sidebar );
 
-		/* Set up the arguments for the wp_nav_menu() function. */
-		$args = array(
-			'menu' => 		$instance['menu'],
-			'container' => 		$instance['container'],
-			'container_id' => 		$instance['container_id'],
-			'container_class' => 	$instance['container_class'],
-			'menu_id' => 		$instance['menu_id'],
-			'menu_class' => 		$instance['menu_class'],
-			'link_before' => 		$instance['link_before'],
-			'link_after' => 		$instance['link_after'],
-			'before' => 		$instance['before'],
-			'after' => 		$instance['after'],
-			'depth' => 		intval( $instance['depth'] ),
-			'fallback_cb' => 		$instance['fallback_cb'],
-			'walker' => 		$instance['walker'],
-			'echo' => 		false
-		);
+		/* Set the $args for wp_nav_menu() to the $instance array. */
+		$args = $instance;
+
+		/* Overwrite the $echo argument and set it to false. */
+		$args['echo'] = false;
 
 		/* Output the theme's widget wrapper. */
 		echo $before_widget;
@@ -102,6 +77,7 @@ class Hybrid_Widget_Nav_Menu extends WP_Widget {
 
 	/**
 	 * Updates the widget control options for the particular instance of the widget.
+	 *
 	 * @since 0.8.0
 	 */
 	function update( $new_instance, $old_instance ) {
@@ -123,13 +99,14 @@ class Hybrid_Widget_Nav_Menu extends WP_Widget {
 
 	/**
 	 * Displays the widget control options in the Widgets admin screen.
+	 *
 	 * @since 0.8.0
 	 */
 	function form( $instance ) {
 
 		/* Set up the default form values. */
 		$defaults = array(
-			'title' => esc_attr__( 'Navigation', $this->textdomain ),
+			'title' => esc_attr__( 'Navigation', 'hybrid-core' ),
 			'menu' => '',
 			'container' => 'div',
 			'container_id' => '',
@@ -153,7 +130,7 @@ class Hybrid_Widget_Nav_Menu extends WP_Widget {
 
 		<div class="hybrid-widget-controls columns-2">
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', $this->textdomain ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'hybrid-core' ); ?></label>
 			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $instance['title'] ); ?>" />
 		</p>
 		<p>

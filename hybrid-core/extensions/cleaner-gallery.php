@@ -15,9 +15,9 @@
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @package CleanerGallery
- * @version 0.9.2
+ * @version 0.9.3
  * @author Justin Tadlock <justin@justintadlock.com>
- * @copyright Copyright (c) 2008 - 2011, Justin Tadlock
+ * @copyright Copyright (c) 2008 - 2012, Justin Tadlock
  * @link http://justintadlock.com/archives/2008/04/13/cleaner-wordpress-gallery-plugin
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
@@ -31,12 +31,12 @@ add_filter( 'post_gallery', 'cleaner_gallery', 10, 2 );
  * developers to style the gallery more easily.
  *
  * @since 0.9.0
+ * @access private
  * @param string $output
  * @param array $attr
  * @return string $output
  */
 function cleaner_gallery( $output, $attr ) {
-	global $post;
 
 	static $cleaner_gallery_instance = 0;
 	$cleaner_gallery_instance++;
@@ -56,7 +56,7 @@ function cleaner_gallery( $output, $attr ) {
 	$defaults = array(
 		'order' => 'ASC',
 		'orderby' => 'menu_order ID',
-		'id' => $post->ID,
+		'id' => get_the_ID(),
 		'link' => '',
 		'itemtag' => 'dl',
 		'icontag' => 'dt',
@@ -92,6 +92,7 @@ function cleaner_gallery( $output, $attr ) {
 		'include' => $include,
 		'numberposts' => $numberposts,
 		'offset' => $offset,
+		'suppress_filters' => true
 	);
 
 	/* Get image attachments. If none, return. */
@@ -121,7 +122,7 @@ function cleaner_gallery( $output, $attr ) {
 
 		/* Open each gallery row. */
 		if ( $columns > 0 && $i % $columns == 0 )
-			$output .= "\n\t\t\t\t<div class='gallery-row clear'>";
+			$output .= "\n\t\t\t\t<div class='gallery-row gallery-clear'>";
 
 		/* Open each gallery item. */
 		$output .= "\n\t\t\t\t\t<{$itemtag} class='gallery-item col-{$columns}'>";

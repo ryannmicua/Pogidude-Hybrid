@@ -6,39 +6,30 @@
  *
  * @package Hybrid
  * @subpackage Widgets
+ * @author Justin Tadlock <justin@justintadlock.com>
+ * @copyright Copyright (c) 2008 - 2012, Justin Tadlock
+ * @link http://themehybrid.com/hybrid-core
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /**
  * Pages Widget Class
  *
  * @since 0.6.0
- * @link http://codex.wordpress.org/Template_Tags/wp_list_pages
- * @link http://themehybrid.com/themes/hybrid/widgets
  */
 class Hybrid_Widget_Pages extends WP_Widget {
 
 	/**
-	 * Prefix for the widget.
-	 * @since 0.7.0
-	 */
-	var $prefix;
-
-	/**
 	 * Set up the widget's unique name, ID, class, description, and other options.
+	 *
 	 * @since 1.2.0
 	 */
 	function __construct() {
 
-		/* Set the widget prefix. */
-		$this->prefix = hybrid_get_prefix();
-
-		/* Set the widget textdomain. */
-		$this->textdomain = hybrid_get_textdomain();
-
 		/* Set up the widget options. */
 		$widget_options = array(
 			'classname' => 'pages',
-			'description' => esc_html__( 'An advanced widget that gives you total control over the output of your page links.', $this->textdomain )
+			'description' => esc_html__( 'An advanced widget that gives you total control over the output of your page links.', 'hybrid-core' )
 		);
 
 		/* Set up the widget control options. */
@@ -50,7 +41,7 @@ class Hybrid_Widget_Pages extends WP_Widget {
 		/* Create the widget. */
 		$this->WP_Widget(
 			'hybrid-pages',			// $this->id_base
-			__( 'Pages', $this->textdomain),	// $this->name
+			__( 'Pages', 'hybrid-core'),		// $this->name
 			$widget_options,			// $this->widget_options
 			$control_options			// $this->control_options
 		);
@@ -58,33 +49,26 @@ class Hybrid_Widget_Pages extends WP_Widget {
 
 	/**
 	 * Outputs the widget based on the arguments input through the widget controls.
+	 *
 	 * @since 0.6.0
 	 */
-	function widget( $args, $instance ) {
-		extract( $args );
+	function widget( $sidebar, $instance ) {
+		extract( $sidebar );
 
-		/* Set up the arguments for the wp_list_pages() function. */
-		$args = array(
-			'sort_column' => 		$instance['sort_column'],
-			'sort_order' =>		$instance['sort_order'],
-			'depth' =>		intval( $instance['depth'] ),
-			'child_of' =>		intval( $instance['child_of'] ),
-			'meta_key' =>		$instance['meta_key'],
-			'meta_value' =>		$instance['meta_value'],
-			'authors' =>		!empty( $instance['authors'] ) ? join( ', ', $instance['authors'] ) : '',
-			'include' =>		!empty( $instance['include'] ) ? join( ', ', $instance['include'] ) : '',
-			'exclude' =>		!empty( $instance['exclude'] ) ? join( ', ', $instance['exclude'] ) : '',
-			'exclude_tree' =>		$instance['exclude_tree'],
-			'link_before' =>		$instance['link_before'],
-			'link_after' =>		$instance['link_after'],
-			'date_format' =>		$instance['date_format'],
-			'show_date' =>		$instance['show_date'],
-			'number' =>		intval( $instance['number'] ),
-			'offset' =>		intval( $instance['offset'] ),
-			'hierarchical' =>		!empty( $instance['hierarchical'] ) ? true : false,
-			'title_li' =>		false,
-			'echo' =>			false
-		);
+		/* Set the $args for wp_list_pages() to the $instance array. */
+		$args = $instance;
+
+		/* wp_list_pages() won't accept array of excluded pages, so we need to pass a string. */
+		if ( !empty( $args['exclude'] ) && is_array( $args['exclude'] ) )
+			$args['exclude'] = join( ',', $args['exclude'] );
+
+		/* wp_list_pages() won't accept array of authors, so we need to pass a string. */
+		if ( !empty( $args['authors'] ) && is_array( $args['authors'] ) )
+			$args['authors'] = join( ',', $args['authors'] );
+
+		/* Set the $title_li and $echo to false. */
+		$args['title_li'] = false;
+		$args['echo'] = false;
 
 		/* Open the output of the widget. */
 		echo $before_widget;
@@ -102,6 +86,7 @@ class Hybrid_Widget_Pages extends WP_Widget {
 
 	/**
 	 * Updates the widget control options for the particular instance of the widget.
+	 *
 	 * @since 0.6.0
 	 */
 	function update( $new_instance, $old_instance ) {
@@ -132,13 +117,14 @@ class Hybrid_Widget_Pages extends WP_Widget {
 
 	/**
 	 * Displays the widget control options in the Widgets admin screen.
+	 *
 	 * @since 0.6.0
 	 */
 	function form( $instance ) {
 
 		/* Set up the default form values. */
 		$defaults = array(
-			'title' => esc_attr__( 'Pages', $this->textdomain),
+			'title' => esc_attr__( 'Pages', 'hybrid-core'),
 			'depth' => 0,
 			'number' => '',
 			'offset' => '',
@@ -166,16 +152,16 @@ class Hybrid_Widget_Pages extends WP_Widget {
 		foreach ( $posts as $post )
 			$authors[$post->post_author] = get_the_author_meta( 'display_name', $post->post_author );
 
-		$sort_order = array( 'ASC' => esc_attr__( 'Ascending', $this->textdomain ), 'DESC' => esc_attr__( 'Descending', $this->textdomain ) );
-		$sort_column = array( 'post_author' => esc_attr__( 'Author', $this->textdomain ), 'post_date' => esc_attr__( 'Date', $this->textdomain ), 'ID' => esc_attr__( 'ID', $this->textdomain ), 'menu_order' => esc_attr__( 'Menu Order', $this->textdomain ), 'post_modified' => esc_attr__( 'Modified', $this->textdomain ), 'post_name' => esc_attr__( 'Slug', $this->textdomain ), 'post_title' => esc_attr__( 'Title', $this->textdomain ) );
-		$show_date = array( '' => '', 'created' => esc_attr__( 'Created', $this->textdomain ), 'modified' => esc_attr__( 'Modified', $this->textdomain ) );
+		$sort_order = array( 'ASC' => esc_attr__( 'Ascending', 'hybrid-core' ), 'DESC' => esc_attr__( 'Descending', 'hybrid-core' ) );
+		$sort_column = array( 'post_author' => esc_attr__( 'Author', 'hybrid-core' ), 'post_date' => esc_attr__( 'Date', 'hybrid-core' ), 'ID' => esc_attr__( 'ID', 'hybrid-core' ), 'menu_order' => esc_attr__( 'Menu Order', 'hybrid-core' ), 'post_modified' => esc_attr__( 'Modified', 'hybrid-core' ), 'post_name' => esc_attr__( 'Slug', 'hybrid-core' ), 'post_title' => esc_attr__( 'Title', 'hybrid-core' ) );
+		$show_date = array( '' => '', 'created' => esc_attr__( 'Created', 'hybrid-core' ), 'modified' => esc_attr__( 'Modified', 'hybrid-core' ) );
 		$meta_key = array_merge( array( '' ), (array) get_meta_keys() );
 
 		?>
 
 		<div class="hybrid-widget-controls columns-3">
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', $this->textdomain ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'hybrid-core' ); ?></label>
 			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $instance['title'] ); ?>" />
 		</p>
 		<p>
@@ -278,7 +264,7 @@ class Hybrid_Widget_Pages extends WP_Widget {
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'hierarchical' ); ?>">
-			<input class="checkbox" type="checkbox" <?php checked( $instance['hierarchical'], true ); ?> id="<?php echo $this->get_field_id( 'hierarchical' ); ?>" name="<?php echo $this->get_field_name( 'hierarchical' ); ?>" /> <?php _e( 'Hierarchical?', $this->textdomain); ?> <code>hierarchical</code></label>
+			<input class="checkbox" type="checkbox" <?php checked( $instance['hierarchical'], true ); ?> id="<?php echo $this->get_field_id( 'hierarchical' ); ?>" name="<?php echo $this->get_field_name( 'hierarchical' ); ?>" /> <?php _e( 'Hierarchical?', 'hybrid-core'); ?> <code>hierarchical</code></label>
 		</p>
 		</div>
 		<div style="clear:both;">&nbsp;</div>

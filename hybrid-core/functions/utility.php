@@ -5,6 +5,10 @@
  *
  * @package HybridCore
  * @subpackage Functions
+ * @author Justin Tadlock <justin@justintadlock.com>
+ * @copyright Copyright (c) 2008 - 2012, Justin Tadlock
+ * @link http://themehybrid.com/hybrid-core
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /* Add extra support for post types. */
@@ -20,13 +24,15 @@ add_filter( 'extra_theme_headers', 'hybrid_extra_theme_headers' );
  * they're not registered.
  *
  * @since 0.8.0
+ * @access private
+ * @return void
  */
 function hybrid_add_post_type_support() {
 
-	/* Add support for excerpts and entry-views to the 'page' post type. */
+	/* Add support for excerpts to the 'page' post type. */
 	add_post_type_support( 'page', array( 'excerpt' ) );
 
-	/* Add support for comments, trackbacks, and entry-views to the 'attachment' post type. */
+	/* Add support for trackbacks to the 'attachment' post type. */
 	add_post_type_support( 'attachment', array( 'trackbacks' ) );
 }
 
@@ -36,6 +42,7 @@ function hybrid_add_post_type_support() {
  * displaying additional information to the theme user.
  *
  * @since 1.2.0
+ * @access private
  * @link http://codex.wordpress.org/Theme_Review#Licensing
  * @param array $headers Array of extra headers added by plugins/themes.
  * @return array $headers
@@ -73,6 +80,7 @@ function hybrid_extra_theme_headers( $headers ) {
  * being viewed by the user.
  *
  * @since 0.8.0
+ * @access public
  * @param string $template The slug of the template whose context we're searching for.
  * @return string $template The full path of the located template.
  */
@@ -104,6 +112,8 @@ function get_atomic_template( $template ) {
  * filter hook.
  *
  * @since 0.4.0
+ * @access private
+ * @return void
  */
 function hybrid_meta_template() {
 	$data = hybrid_get_theme_data();
@@ -116,6 +126,8 @@ function hybrid_meta_template() {
  * pages, wrap it in a <div> element. 
  *
  * @since 0.1.0
+ * @access public
+ * @return void
  */
 function hybrid_site_title() {
 
@@ -124,7 +136,7 @@ function hybrid_site_title() {
 
 	/* Get the site title.  If it's not empty, wrap it with the appropriate HTML. */
 	if ( $title = get_bloginfo( 'name' ) )
-		$title = '<' . $tag . ' id="site-title"><a href="' . home_url() . '" title="' . esc_attr( $title ) . '" rel="home"><span>' . $title . '</span></a></' . $tag . '>';
+		$title = sprintf( '<%1$s id="site-title"><a href="%2$s" title="%3$s" rel="home"><span>%4$s</span></a></%1$s>', tag_escape( $tag ), home_url(), esc_attr( $title ), $title );
 
 	/* Display the site title and apply filters for developers to overwrite. */
 	echo apply_atomic( 'site_title', $title );
@@ -135,6 +147,8 @@ function hybrid_site_title() {
  * On other pages, wrap it in a <div> element.
  *
  * @since 0.1.0
+ * @access public
+ * @return void
  */
 function hybrid_site_description() {
 
@@ -143,7 +157,7 @@ function hybrid_site_description() {
 
 	/* Get the site description.  If it's not empty, wrap it with the appropriate HTML. */
 	if ( $desc = get_bloginfo( 'description' ) )
-		$desc = "\n\t\t\t" . '<' . $tag . ' id="site-description"><span>' . $desc . '</span></' . $tag . '>' . "\n";
+		$desc = sprintf( '<%1$s id="site-description"><span>%2$s</span></%1$s>', tag_escape( $tag ), $desc );
 
 	/* Display the site description and apply filters for developers to overwrite. */
 	echo apply_atomic( 'site_description', $desc );
@@ -154,6 +168,7 @@ function hybrid_site_description() {
  * is_page_template() function with the exception that it works for all post types.
  *
  * @since 1.2.0
+ * @access public
  * @param string $template The name of the template to check for.
  * @return bool Whether the post has a template.
  */

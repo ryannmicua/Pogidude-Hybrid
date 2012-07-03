@@ -6,45 +6,30 @@
  *
  * @package Hybrid
  * @subpackage Classes
+ * @author Justin Tadlock <justin@justintadlock.com>
+ * @copyright Copyright (c) 2008 - 2012, Justin Tadlock
+ * @link http://themehybrid.com/hybrid-core
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /**
  * Bookmarks Widget Class
  *
  * @since 0.6.0
- * @link http://codex.wordpress.org/Template_Tags/wp_list_bookmarks
- * @link http://themehybrid.com/themes/hybrid/widgets
  */
 class Hybrid_Widget_Bookmarks extends WP_Widget {
 
 	/**
-	 * Prefix for the widget.
-	 * @since 0.7.0
-	 */
-	var $prefix;
-
-	/**
-	 * Textdomain for the widget.
-	 * @since 0.7.0
-	 */
-	var $textdomain;
-
-	/**
 	 * Set up the widget's unique name, ID, class, description, and other options.
+	 *
 	 * @since 1.2.0
 	 */
 	function __construct() {
 
-		/* Set the widget prefix. */
-		$this->prefix = hybrid_get_prefix();
-
-		/* Set the widget textdomain. */
-		$this->textdomain = hybrid_get_textdomain();
-
 		/* Set up the widget options. */
 		$widget_options = array(
 			'classname' => 'bookmarks',
-			'description' => esc_html__( 'An advanced widget that gives you total control over the output of your bookmarks (links).', $this->textdomain )
+			'description' => esc_html__( 'An advanced widget that gives you total control over the output of your bookmarks (links).', 'hybrid-core' )
 		);
 
 		/* Set up the widget control options. */
@@ -56,65 +41,69 @@ class Hybrid_Widget_Bookmarks extends WP_Widget {
 		/* Create the widget. */
 		$this->WP_Widget(
 			'hybrid-bookmarks',		// $this->id_base
-			__( 'Bookmarks', $this->textdomain ),	// $this->name	
+			__( 'Bookmarks', 'hybrid-core' ),	// $this->name	
 			$widget_options,			// $this->widget_options
 			$control_options			// $this->control_options
 		);
 	}
-
 	/**
 	 * Outputs the widget based on the arguments input through the widget controls.
+	 *
 	 * @since 0.6.0
 	 */
-	function widget( $args, $instance ) {
-		extract( $args );
+	function widget( $sidebar, $instance ) {
+		extract( $sidebar );
 
 		/* Set up the $before_widget ID for multiple widgets created by the bookmarks widget. */
-		if ( $instance['categorize'] )
+		if ( !empty( $instance['categorize'] ) )
 			$before_widget = preg_replace( '/id="[^"]*"/','id="%id"', $before_widget );
 
 		/* Add a class to $before_widget if one is set. */
-		if ( $instance['class'] )
+		if ( !empty( $instance['class'] ) )
 			$before_widget = str_replace( 'class="', 'class="' . esc_attr( $instance['class'] ) . ' ', $before_widget );
 
-		/* Set up the arguments for wp_list_bookmarks(). */
-		$args = array(
-			'title_li' =>		apply_filters( 'widget_title', $instance['title_li'], $instance, $this->id_base ),
-			'category' =>		!empty( $instance['category'] ) ? join( ', ', $instance['category'] ) : '',
-			'exclude_category' =>	!empty( $instance['exclude_category'] ) ? join( ', ', $instance['exclude_category'] ) : '',
-			'category_order' =>	$instance['category_order'],
-			'category_orderby' => 	$instance['category_orderby'],
-			'include' =>		!empty( $instance['include'] ) ? join( ', ', $instance['include'] ) : '',
-			'exclude' =>		!empty( $instance['exclude'] ) ? join( ', ', $instance['exclude'] ) : '',
-			'order' =>		$instance['order'],
-			'orderby' =>		$instance['orderby'],
-			'limit' =>			$instance['limit'] ? intval( $instance['limit'] ) : -1,
-			'between' =>		$instance['between'],
-			'link_before' =>		$instance['link_before'],
-			'link_after' =>		$instance['link_after'],
-			'search' =>		$instance['search'],
-			'categorize' =>		!empty( $instance['categorize'] ) ? true : false,
-			'show_description' =>	!empty( $instance['show_description'] ) ? true : false,
-			'hide_invisible' =>		!empty( $instance['hide_invisible'] ) ? true : false,
-			'show_rating' =>		!empty( $instance['show_rating'] ) ? true : false,
-			'show_updated' =>		!empty( $instance['show_updated'] ) ? true : false,
-			'show_images' =>		!empty( $instance['show_images'] ) ? true : false,
-			'show_name' =>		!empty( $instance['show_name'] ) ? true : false,
-			'show_private' =>		!empty( $instance['show_private'] ) ? true : false,
-			'title_before' => 		$before_title,
-			'title_after' => 		$after_title,
-			'category_before' =>	$before_widget,
-			'category_after' =>	$after_widget,
-			'category_name' =>	false,
-			'echo' =>			false
-		);
+		/* Set the $args for wp_list_bookmarks() to the $instance array. */
+		$args = $instance;
+
+		/* wp_list_bookmarks() hasn't been updated in WP to use wp_parse_id_list(), so we have to pass strings for includes/excludes. */
+		if ( !empty( $args['category'] ) && is_array( $args['category'] ) )
+			$args['category'] = join( ', ', $args['category'] );
+
+		if ( !empty( $args['exclude_category'] ) && is_array( $args['exclude_category'] ) )
+			$args['exclude_category'] = join( ', ', $args['exclude_category'] );
+
+		if ( !empty( $args['include'] ) && is_array( $args['include'] ) )
+			$args['include'] = join( ',', $args['include'] );
+
+		if ( !empty( $args['exclude'] ) && is_array( $args['exclude'] ) )
+			$args['exclude'] = join( ',', $args['exclude'] );
+
+		/* If no limit is given, set it to -1. */
+		$args['limit'] = empty( $args['limit'] ) ? -1 : $args['limit'];
+
+		/* Some arguments must be set to the sidebar arguments to be output correctly. */
+		$args['title_li'] = apply_filters( 'widget_title', ( empty( $args['title_li'] ) ? __( 'Bookmarks', 'hybrid-core' ) : $args['title_li'] ), $instance, $this->id_base );
+		$args['title_before'] = $before_title;
+		$args['title_after'] = $after_title;
+		$args['category_before'] = $before_widget;
+		$args['category_after'] = $after_widget;
+		$args['category_name'] = '';
+		$args['echo'] = false;
 
 		/* Output the bookmarks widget. */
-		echo str_replace( array( "\r", "\n", "\t" ), '', wp_list_bookmarks( $args ) );
+		$bookmarks = str_replace( array( "\r", "\n", "\t" ), '', wp_list_bookmarks( $args ) );
+
+		/* If no title is given and the bookmarks aren't categorized, add a wrapper <ul>. */
+		if ( empty( $args['title_li'] ) && false === $args['categorize'] )
+			$bookmarks = '<ul class="xoxo bookmarks">' . $bookmarks . '</ul>';
+
+		/* Output the bookmarks. */
+		echo $bookmarks;
 	}
 
 	/**
 	 * Updates the widget control options for the particular instance of the widget.
+	 *
 	 * @since 0.6.0
 	 */
 	function update( $new_instance, $old_instance ) {
@@ -149,19 +138,20 @@ class Hybrid_Widget_Bookmarks extends WP_Widget {
 
 	/**
 	 * Displays the widget control options in the Widgets admin screen.
+	 *
 	 * @since 0.6.0
 	 */
 	function form( $instance ) {
 
 		/* Set up the default form values. */
 		$defaults = array(
-			'title_li' => esc_attr__( 'Bookmarks', $this->textdomain ),
+			'title_li' => esc_attr__( 'Bookmarks', 'hybrid-core' ),
 			'categorize' => true,
 			'category_order' => 'ASC',
 			'category_orderby' => 'name',
 			'category' => array(),
 			'exclude_category' => array(),
-			'limit' => '',
+			'limit' => -1,
 			'order' => 'ASC',
 			'orderby' => 'name',
 			'include' => array(),
@@ -185,16 +175,16 @@ class Hybrid_Widget_Bookmarks extends WP_Widget {
 
 		$terms = get_terms( 'link_category' );
 		$bookmarks = get_bookmarks( array( 'hide_invisible' => false ) );
-		$category_order = array( 'ASC' => esc_attr__( 'Ascending', $this->textdomain ), 'DESC' => esc_attr__( 'Descending', $this->textdomain ) );
-		$category_orderby = array( 'count' => esc_attr__( 'Count', $this->textdomain ), 'ID' => esc_attr__( 'ID', $this->textdomain ), 'name' => esc_attr__( 'Name', $this->textdomain ), 'slug' => esc_attr__( 'Slug', $this->textdomain ) );
-		$order = array( 'ASC' => esc_attr__( 'Ascending', $this->textdomain ), 'DESC' => esc_attr__( 'Descending', $this->textdomain ) );
-		$orderby = array( 'id' => esc_attr__( 'ID', $this->textdomain ), 'description' => esc_attr__( 'Description',  $this->textdomain ), 'length' => esc_attr__( 'Length',  $this->textdomain ), 'name' => esc_attr__( 'Name',  $this->textdomain ), 'notes' => esc_attr__( 'Notes',  $this->textdomain ), 'owner' => esc_attr__( 'Owner',  $this->textdomain ), 'rand' => esc_attr__( 'Random',  $this->textdomain ), 'rating' => esc_attr__( 'Rating',  $this->textdomain ), 'rel' => esc_attr__( 'Rel',  $this->textdomain ), 'rss' => esc_attr__( 'RSS',  $this->textdomain ), 'target' => esc_attr__( 'Target',  $this->textdomain ), 'updated' => esc_attr__( 'Updated',  $this->textdomain ), 'url' => esc_attr__( 'URL',  $this->textdomain ) );
+		$category_order = array( 'ASC' => esc_attr__( 'Ascending', 'hybrid-core' ), 'DESC' => esc_attr__( 'Descending', 'hybrid-core' ) );
+		$category_orderby = array( 'count' => esc_attr__( 'Count', 'hybrid-core' ), 'ID' => esc_attr__( 'ID', 'hybrid-core' ), 'name' => esc_attr__( 'Name', 'hybrid-core' ), 'slug' => esc_attr__( 'Slug', 'hybrid-core' ) );
+		$order = array( 'ASC' => esc_attr__( 'Ascending', 'hybrid-core' ), 'DESC' => esc_attr__( 'Descending', 'hybrid-core' ) );
+		$orderby = array( 'id' => esc_attr__( 'ID', 'hybrid-core' ), 'description' => esc_attr__( 'Description',  'hybrid-core' ), 'length' => esc_attr__( 'Length',  'hybrid-core' ), 'name' => esc_attr__( 'Name',  'hybrid-core' ), 'notes' => esc_attr__( 'Notes',  'hybrid-core' ), 'owner' => esc_attr__( 'Owner',  'hybrid-core' ), 'rand' => esc_attr__( 'Random',  'hybrid-core' ), 'rating' => esc_attr__( 'Rating',  'hybrid-core' ), 'rel' => esc_attr__( 'Rel',  'hybrid-core' ), 'rss' => esc_attr__( 'RSS',  'hybrid-core' ), 'target' => esc_attr__( 'Target',  'hybrid-core' ), 'updated' => esc_attr__( 'Updated',  'hybrid-core' ), 'url' => esc_attr__( 'URL',  'hybrid-core' ) );
 
 		?>
 
 		<div class="hybrid-widget-controls columns-3">
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title_li' ); ?>"><?php _e( 'Title:', $this->textdomain ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'title_li' ); ?>"><?php _e( 'Title:', 'hybrid-core' ); ?></label>
 			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'title_li' ); ?>" name="<?php echo $this->get_field_name( 'title_li' ); ?>" value="<?php echo esc_attr( $instance['title_li'] ); ?>" />
 		</p>
 		<p>
@@ -296,35 +286,35 @@ class Hybrid_Widget_Bookmarks extends WP_Widget {
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'categorize' ); ?>">
-			<input class="checkbox" type="checkbox" <?php checked( $instance['categorize'], true ); ?> id="<?php echo $this->get_field_id( 'categorize' ); ?>" name="<?php echo $this->get_field_name( 'categorize' ); ?>" /> <?php _e( 'Categorize?', $this->textdomain ); ?> <code>categorize</code></label>
+			<input class="checkbox" type="checkbox" <?php checked( $instance['categorize'], true ); ?> id="<?php echo $this->get_field_id( 'categorize' ); ?>" name="<?php echo $this->get_field_name( 'categorize' ); ?>" /> <?php _e( 'Categorize?', 'hybrid-core' ); ?> <code>categorize</code></label>
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'show_description' ); ?>">
-			<input class="checkbox" type="checkbox" <?php checked( $instance['show_description'], true ); ?> id="<?php echo $this->get_field_id( 'show_description' ); ?>" name="<?php echo $this->get_field_name( 'show_description' ); ?>" /> <?php _e( 'Show description?', $this->textdomain ); ?> <code>show_description</code></label>
+			<input class="checkbox" type="checkbox" <?php checked( $instance['show_description'], true ); ?> id="<?php echo $this->get_field_id( 'show_description' ); ?>" name="<?php echo $this->get_field_name( 'show_description' ); ?>" /> <?php _e( 'Show description?', 'hybrid-core' ); ?> <code>show_description</code></label>
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'hide_invisible' ); ?>">
-			<input class="checkbox" type="checkbox" <?php checked( $instance['hide_invisible'], true ); ?> id="<?php echo $this->get_field_id( 'hide_invisible' ); ?>" name="<?php echo $this->get_field_name( 'hide_invisible' ); ?>" /> <?php _e( 'Hide invisible?', $this->textdomain ); ?> <code>hide_invisible</code></label>
+			<input class="checkbox" type="checkbox" <?php checked( $instance['hide_invisible'], true ); ?> id="<?php echo $this->get_field_id( 'hide_invisible' ); ?>" name="<?php echo $this->get_field_name( 'hide_invisible' ); ?>" /> <?php _e( 'Hide invisible?', 'hybrid-core' ); ?> <code>hide_invisible</code></label>
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'show_rating' ); ?>">
-			<input class="checkbox" type="checkbox" <?php checked( $instance['show_rating'], true ); ?> id="<?php echo $this->get_field_id( 'show_rating' ); ?>" name="<?php echo $this->get_field_name( 'show_rating' ); ?>" /> <?php _e( 'Show rating?', $this->textdomain ); ?> <code>show_rating</code></label>
+			<input class="checkbox" type="checkbox" <?php checked( $instance['show_rating'], true ); ?> id="<?php echo $this->get_field_id( 'show_rating' ); ?>" name="<?php echo $this->get_field_name( 'show_rating' ); ?>" /> <?php _e( 'Show rating?', 'hybrid-core' ); ?> <code>show_rating</code></label>
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'show_updated' ); ?>">
-			<input class="checkbox" type="checkbox" <?php checked( $instance['show_updated'], true ); ?> id="<?php echo $this->get_field_id( 'show_updated' ); ?>" name="<?php echo $this->get_field_name( 'show_updated' ); ?>" /> <?php _e( 'Show updated?', $this->textdomain ); ?> <code>show_updated</code></label>
+			<input class="checkbox" type="checkbox" <?php checked( $instance['show_updated'], true ); ?> id="<?php echo $this->get_field_id( 'show_updated' ); ?>" name="<?php echo $this->get_field_name( 'show_updated' ); ?>" /> <?php _e( 'Show updated?', 'hybrid-core' ); ?> <code>show_updated</code></label>
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'show_images' ); ?>">
-			<input class="checkbox" type="checkbox" <?php checked( $instance['show_images'], true ); ?> id="<?php echo $this->get_field_id( 'show_images' ); ?>" name="<?php echo $this->get_field_name( 'show_images' ); ?>" /> <?php _e( 'Show images?', $this->textdomain ); ?> <code>show_images</code></label>
+			<input class="checkbox" type="checkbox" <?php checked( $instance['show_images'], true ); ?> id="<?php echo $this->get_field_id( 'show_images' ); ?>" name="<?php echo $this->get_field_name( 'show_images' ); ?>" /> <?php _e( 'Show images?', 'hybrid-core' ); ?> <code>show_images</code></label>
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'show_name' ); ?>">
-			<input class="checkbox" type="checkbox" <?php checked( $instance['show_name'], true ); ?> id="<?php echo $this->get_field_id( 'show_name' ); ?>" name="<?php echo $this->get_field_name( 'show_name' ); ?>" /> <?php _e( 'Show name?', $this->textdomain ); ?> <code>show_name</code></label>
+			<input class="checkbox" type="checkbox" <?php checked( $instance['show_name'], true ); ?> id="<?php echo $this->get_field_id( 'show_name' ); ?>" name="<?php echo $this->get_field_name( 'show_name' ); ?>" /> <?php _e( 'Show name?', 'hybrid-core' ); ?> <code>show_name</code></label>
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'show_private' ); ?>">
-			<input class="checkbox" type="checkbox" <?php checked( $instance['show_private'], true ); ?> id="<?php echo $this->get_field_id( 'show_private' ); ?>" name="<?php echo $this->get_field_name( 'show_private' ); ?>" /> <?php _e( 'Show private?', $this->textdomain ); ?> <code>show_private</code></label>
+			<input class="checkbox" type="checkbox" <?php checked( $instance['show_private'], true ); ?> id="<?php echo $this->get_field_id( 'show_private' ); ?>" name="<?php echo $this->get_field_name( 'show_private' ); ?>" /> <?php _e( 'Show private?', 'hybrid-core' ); ?> <code>show_private</code></label>
 		</p>
 
 		</div>

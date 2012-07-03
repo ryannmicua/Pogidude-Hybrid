@@ -5,6 +5,10 @@
  *
  * @package HybridCore
  * @subpackage Functions
+ * @author Justin Tadlock <justin@justintadlock.com>
+ * @copyright Copyright (c) 2008 - 2012, Justin Tadlock
+ * @link http://themehybrid.com/hybrid-core
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /* Register Hybrid Core scripts. */
@@ -16,34 +20,55 @@ add_action( 'wp_enqueue_scripts', 'hybrid_enqueue_scripts' );
 /* Load the development stylsheet in script debug mode. */
 add_filter( 'stylesheet_uri', 'hybrid_debug_stylesheet', 10, 2 );
 
+/* Add all image sizes to the image editor to insert into post. */
+add_filter( 'image_size_names_choose', 'hybrid_image_size_names_choose' );
+
 /**
  * Registers JavaScript files for the framework.  This function merely registers scripts with WordPress using
  * the wp_register_script() function.  It does not load any script files on the site.  If a theme wants to register 
  * its own custom scripts, it should do so on the 'wp_enqueue_scripts' hook.
  *
  * @since 1.2.0
+ * @access private
+ * @return void
  */
 function hybrid_register_scripts() {
 
+	/* Supported JavaScript. */
+	$supports = get_theme_support( 'hybrid-core-javascript' );
+
 	/* Register the 'drop-downs' script if the current theme supports 'hybrid-core-drop-downs'. */
-	if ( current_theme_supports( 'hybrid-core-drop-downs' ) )
-		wp_register_script( 'drop-downs', esc_url( apply_atomic( 'drop_downs_script', trailingslashit( HYBRID_JS ) . 'drop-downs.js' ) ), array( 'jquery' ), '20110705', true );
+	if ( current_theme_supports( 'hybrid-core-drop-downs' ) || ( isset( $supports[0] ) && in_array( 'drop-downs', $supports[0] ) ) )
+		wp_register_script( 'drop-downs', esc_url( apply_atomic( 'drop_downs_script', trailingslashit( HYBRID_JS ) . 'drop-downs.js' ) ), array( 'jquery' ), '20110920', true );
+
+	/* Register the 'nav-bar' script if the current theme supports 'hybrid-core-nav-bar'. */
+	if ( isset( $supports[0] ) && in_array( 'nav-bar', $supports[0] ) )
+		wp_register_script( 'nav-bar', esc_url( apply_atomic( 'nav_bar_script', trailingslashit( HYBRID_JS ) . 'nav-bar.js' ) ), array( 'jquery' ), '20111008', true );
 }
 
 /**
  * Tells WordPress to load the scripts needed for the framework using the wp_enqueue_script() function.
  *
  * @since 1.2.0
+ * @access private
+ * @return void
  */
 function hybrid_enqueue_scripts() {
+
+	/* Supported JavaScript. */
+	$supports = get_theme_support( 'hybrid-core-javascript' );
 
 	/* Load the comment reply script on singular posts with open comments if threaded comments are supported. */
 	if ( is_singular() && get_option( 'thread_comments' ) && comments_open() )
 		wp_enqueue_script( 'comment-reply' );
 
 	/* Load the 'drop-downs' script if the current theme supports 'hybrid-core-drop-downs'. */
-	if ( current_theme_supports( 'hybrid-core-drop-downs' ) )
+	if ( current_theme_supports( 'hybrid-core-drop-downs' ) || ( isset( $supports[0] ) && in_array( 'drop-downs', $supports[0] ) ) )
 		wp_enqueue_script( 'drop-downs' );
+
+	/* Load the 'nav-bar' script if the current theme supports 'hybrid-core-nav-bar'. */
+	if ( isset( $supports[0] ) && in_array( 'nav-bar', $supports[0] ) )
+		wp_enqueue_script( 'nav-bar' );
 }
 
 /**
@@ -52,6 +77,10 @@ function hybrid_enqueue_scripts() {
  * file is present within the theme folder and use it if it exists.  Else, it defaults to 'style.css'.
  *
  * @since 0.9.0
+ * @access private
+ * @param string $stylesheet_uri The URI of the active theme's stylesheet.
+ * @param string $stylesheet_dir_uri The directory URI of the active theme's stylesheet.
+ * @return string $stylesheet_uri
  */
 function hybrid_debug_stylesheet( $stylesheet_uri, $stylesheet_dir_uri ) {
 
@@ -65,12 +94,38 @@ function hybrid_debug_stylesheet( $stylesheet_uri, $stylesheet_dir_uri ) {
 		$stylesheet = str_replace( '.css', '.dev.css', $stylesheet );
 
 		/* If the stylesheet exists in the stylesheet directory, set the stylesheet URI to the dev stylesheet. */
-		if ( file_exists( trailingslashit( STYLESHEETPATH ) . $stylesheet ) )
+		if ( file_exists( trailingslashit( get_stylesheet_directory() ) . $stylesheet ) )
 			$stylesheet_uri = trailingslashit( $stylesheet_dir_uri ) . $stylesheet;
 	}
 
 	/* Return the theme stylesheet. */
 	return $stylesheet_uri;
+}
+
+/**
+ * Adds theme/plugin custom images sizes added with add_image_size() to the image uploader/editor.  This 
+ * allows users to insert these images within their post content editor.
+ *
+ * @since 1.3.0
+ * @access private
+ * @param array $sizes Selectable image sizes.
+ * @return array $sizes
+ */
+function hybrid_image_size_names_choose( $sizes ) {
+
+	/* Get all intermediate image sizes. */
+	$intermediate_sizes = get_intermediate_image_sizes();
+	$add_sizes = array();
+
+	/* Loop through each of the intermediate sizes, adding them to the $add_sizes array. */
+	foreach ( $intermediate_sizes as $size )
+		$add_sizes[$size] = $size;
+
+	/* Merge the original array, keeping it intact, with the new array of image sizes. */
+	$sizes = array_merge( $add_sizes, $sizes );
+
+	/* Return the new sizes plus the old sizes back. */
+	return $sizes;
 }
 
 /**
@@ -82,8 +137,10 @@ function hybrid_debug_stylesheet( $stylesheet_uri, $stylesheet_dir_uri ) {
  * lead to messy template files.
  *
  * @since 0.5.0
+ * @access public
  * @uses get_post_mime_type() Gets the mime type of the attachment.
  * @uses wp_get_attachment_url() Gets the URL of the attachment file.
+ * @return void
  */
 function hybrid_attachment() {
 	$file = wp_get_attachment_url();
@@ -106,6 +163,7 @@ function hybrid_attachment() {
  * on those pages.
  *
  * @since 0.3.0
+ * @access public
  * @param string $mime attachment mime type
  * @param string $file attachment file URL
  * @return string
@@ -124,6 +182,7 @@ function hybrid_application_attachment( $mime = '', $file = '' ) {
  * in the pages.
  *
  * @since 0.3.0
+ * @access public
  * @param string $mime attachment mime type
  * @param string $file attachment file URL
  * @return string
@@ -144,6 +203,7 @@ function hybrid_text_attachment( $mime = '', $file = '' ) {
  * @todo Test out and support more audio types.
  *
  * @since 0.2.2
+ * @access public
  * @param string $mime attachment mime type
  * @param string $file attachment file URL
  * @return string
@@ -163,6 +223,7 @@ function hybrid_audio_attachment( $mime = '', $file = '' ) {
  * Handles video attachments on attachment pages.  Add other video types to the <object> element.
  *
  * @since 0.2.2
+ * @access public
  * @param string $mime attachment mime type
  * @param string $file attachment file URL
  * @return string
