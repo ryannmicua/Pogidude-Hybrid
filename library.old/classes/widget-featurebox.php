@@ -52,7 +52,7 @@ class Squar_Feature_Box_Widget extends WP_Widget{
 			$this->prefix = hybrid_get_prefix();
 			
 			/* Set the widget textdomain. */
-			$this->textdomain = hybrid_get_textdomain();
+			$this->textdomain = hybrid_get_parent_textdomain();
 		} else {
 			$this->prefix = 'squar';
 			$this->textdomain = 'squar';

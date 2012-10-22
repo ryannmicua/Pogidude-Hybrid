@@ -6,7 +6,7 @@
 define('DOG_PRODUCT_CSS', trailingslashit( THEME_ADMIN_URI ) . 'css' );
 define('DOG_PRODUCT_JS', trailingslashit( THEME_ADMIN_URI ) . 'js' );
 
-$textdomain = hybrid_get_textdomain();
+$textdomain = hybrid_get_parent_textdomain();
 
 require_once( trailingslashit( THEME_ADMIN_DIR ) . 'admin-print-field.php' );
 //path to css for pogidude admin stylesheet
@@ -60,7 +60,7 @@ function bulldog_product_menus_init(){
  * http://codex.wordpress.org/Function_Reference/register_post_type
  */
 function bulldog_product_posttype() {
-	$textdomain = hybrid_get_textdomain();
+	$textdomain = hybrid_get_parent_textdomain();
 	
 	$labels = array(
 		'name' => __( 'Product Pages', $textdomain ),

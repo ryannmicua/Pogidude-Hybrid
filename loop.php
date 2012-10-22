@@ -6,7 +6,7 @@
  * @subpackage Template
  */
 
-$textdomain = hybrid_get_textdomain();
+$textdomain = hybrid_get_parent_textdomain();
 ?>
 
 <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
@@ -29,7 +29,7 @@ $textdomain = hybrid_get_textdomain();
 			<?php else: ?>
 				<?php the_content(); ?>
 				
-				<?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', hybrid_get_textdomain() ), 'after' => '</div>' ) ); ?>
+				<?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', hybrid_get_parent_textdomain() ), 'after' => '</div>' ) ); ?>
 			<?php endif; ?>
 				
 			<div class="clear"></div>

@@ -116,7 +116,7 @@ function mobility21_topright_metabox(){ ?>
 	<table class="form-table">
 		<tr>
 			<th>
-				<label for="<?php echo hybrid_settings_field_id( 'widgetize_topright' ); ?>"><?php _e( 'Widgetize This Area:', hybrid_get_textdomain() ); ?></label>
+				<label for="<?php echo hybrid_settings_field_id( 'widgetize_topright' ); ?>"><?php _e( 'Widgetize This Area:', hybrid_get_parent_textdomain() ); ?></label>
 			</th>
 			<td>
 				<input type="checkbox" id="<?php echo hybrid_settings_field_id('widgetize_topright'); ?>" name="<?php echo hybrid_settings_field_name('widgetize_topright'); ?>" value="widgetize" <?php checked('widgetize',hybrid_get_setting('widgetize_topright')); ?>  />
@@ -139,7 +139,7 @@ function mobility21_feature_metabox(){ ?>
 	<table class="form-table">
 		<tr>
 			<th>
-				<label for="<?php echo hybrid_settings_field_id( 'disable_slider' ); ?>"><?php _e( 'Disable Frontpage Slider:', hybrid_get_textdomain() ); ?></label>
+				<label for="<?php echo hybrid_settings_field_id( 'disable_slider' ); ?>"><?php _e( 'Disable Frontpage Slider:', hybrid_get_parent_textdomain() ); ?></label>
 			</th>
 			<td>
 				<input type="checkbox" id="<?php echo hybrid_settings_field_id('disable_slider'); ?>" name="<?php echo hybrid_settings_field_name('disable_slider'); ?>" value="disable" <?php checked('disable',hybrid_get_setting('disable_slider')); ?> />
@@ -159,7 +159,7 @@ function mobility21_subfeature_metabox(){ ?>
 	<table class="form-table">
 		<tr>
 			<th>
-				<label for="<?php echo hybrid_settings_field_id( 'disable_subfeature' ); ?>"><?php _e( 'Disable Subfeature Area:', hybrid_get_textdomain() ); ?></label>
+				<label for="<?php echo hybrid_settings_field_id( 'disable_subfeature' ); ?>"><?php _e( 'Disable Subfeature Area:', hybrid_get_parent_textdomain() ); ?></label>
 			</th>
 			<td>
 				<input type="checkbox" id="<?php echo hybrid_settings_field_id('disable_subfeature'); ?>" name="<?php echo hybrid_settings_field_name('disable_subfeature'); ?>" value="disable" <?php checked('disable',hybrid_get_setting('disable_subfeature')); ?> />
@@ -171,7 +171,7 @@ function mobility21_subfeature_metabox(){ ?>
 		
 		<tr>
 			<th>
-				<label for="<?php echo hybrid_settings_field_id( "widgetize_subfeature" ); ?>"><?php _e( 'Widgetize Subfeature Area:', hybrid_get_textdomain() ); ?></label>
+				<label for="<?php echo hybrid_settings_field_id( "widgetize_subfeature" ); ?>"><?php _e( 'Widgetize Subfeature Area:', hybrid_get_parent_textdomain() ); ?></label>
 			</th>
 			<td>
 				<input type="checkbox" id="<?php echo hybrid_settings_field_id("widgetize_subfeature"); ?>" name="<?php echo hybrid_settings_field_name("widgetize_subfeature"); ?>" value="widgetize" <?php checked('widgetize',hybrid_get_setting("widgetize_subfeature")); ?> />
@@ -183,7 +183,7 @@ function mobility21_subfeature_metabox(){ ?>
 			
 		<tr>
 			<th>
-				<label for="<?php echo hybrid_settings_field_id( 'subfeature_content' ); ?>"><?php _e( 'Subfeature Content:', hybrid_get_textdomain() ); ?></label>
+				<label for="<?php echo hybrid_settings_field_id( 'subfeature_content' ); ?>"><?php _e( 'Subfeature Content:', hybrid_get_parent_textdomain() ); ?></label>
 			</th>
 			<td colspan="2">
 				<textarea id="<?php echo hybrid_settings_field_id('subfeature_content'); ?>" name="<?php echo hybrid_settings_field_name('subfeature_content'); ?>" cols="60" rows="5" style="width=98%;"><?php echo wp_htmledit_pre( stripslashes( hybrid_get_setting( 'subfeature_content' ) ) ); ?></textarea>
@@ -206,7 +206,7 @@ function mobility21_subfeaturecolumns_metabox(){ ?>
 	<table class="form-table subfeature-columns">
 		<tr>
 			<th>
-				<label for="<?php echo hybrid_settings_field_id( 'disable_subfeature_columns' ); ?>"><?php _e( 'Disable Subfeature Column Area:', hybrid_get_textdomain() ); ?></label>
+				<label for="<?php echo hybrid_settings_field_id( 'disable_subfeature_columns' ); ?>"><?php _e( 'Disable Subfeature Column Area:', hybrid_get_parent_textdomain() ); ?></label>
 			</th>
 			<td>
 				<input type="checkbox" id="<?php echo hybrid_settings_field_id('disable_subfeature_columns'); ?>" name="<?php echo hybrid_settings_field_name('disable_subfeature_columns'); ?>" value="disable" <?php checked('disable',hybrid_get_setting('disable_subfeature_columns')); ?> />
@@ -230,7 +230,7 @@ function mobility21_subfeaturecolumns_metabox(){ ?>
 			</tr>
 			<!--tr>
 				<th>
-					<label for="<?php echo hybrid_settings_field_id( "widgetize_subfeature_column_{$count}" ); ?>"><?php _e( 'Widgetize This Column:', hybrid_get_textdomain() ); ?></label>
+					<label for="<?php echo hybrid_settings_field_id( "widgetize_subfeature_column_{$count}" ); ?>"><?php _e( 'Widgetize This Column:', hybrid_get_parent_textdomain() ); ?></label>
 				</th>
 				<td>
 					<input type="checkbox" id="<?php echo hybrid_settings_field_id("widgetize_subfeature_column_{$count}"); ?>" name="<?php echo hybrid_settings_field_name("widgetize_subfeature_column_{$count}"); ?>" value="widgetize" <?php checked('widgetize',hybrid_get_setting("widgetize_subfeature_column_{$count}")); ?> />
@@ -241,7 +241,7 @@ function mobility21_subfeaturecolumns_metabox(){ ?>
 			</tr-->
 			<tr class="subfeature-column-<?php echo $count; ?>-content">
 				<th>
-					<label for="<?php echo hybrid_settings_field_id( "subfeature_column_{$count}_button_link" ); ?>"><?php _e( 'Default Button Link:', hybrid_get_textdomain() ); ?></label>
+					<label for="<?php echo hybrid_settings_field_id( "subfeature_column_{$count}_button_link" ); ?>"><?php _e( 'Default Button Link:', hybrid_get_parent_textdomain() ); ?></label>
 				</th>
 				<td>
 					<textarea id="<?php echo hybrid_settings_field_id( "subfeature_column_{$count}_button_link" ); ?>" name="<?php echo hybrid_settings_field_name( "subfeature_column_{$count}_button_link" ); ?>" ><?php echo hybrid_get_setting("subfeature_column_{$count}_button_link" ); ?></textarea>
@@ -253,7 +253,7 @@ function mobility21_subfeaturecolumns_metabox(){ ?>
 			
 			<tr>
 				<th>
-					<label for="<?php echo hybrid_settings_field_id( "subfeature_column_{$count}_default_image" ); ?>"><?php _e( 'Default Image URL location:', hybrid_get_textdomain() ); ?></label>
+					<label for="<?php echo hybrid_settings_field_id( "subfeature_column_{$count}_default_image" ); ?>"><?php _e( 'Default Image URL location:', hybrid_get_parent_textdomain() ); ?></label>
 				</th>
 				<td>
 					<textarea id="<?php echo hybrid_settings_field_id( "subfeature_column_{$count}_default_image" ); ?>" name="<?php echo hybrid_settings_field_name( "subfeature_column_{$count}_default_image" ); ?>" ><?php echo hybrid_get_setting("subfeature_column_{$count}_default_image" ); ?></textarea><br />
@@ -266,7 +266,7 @@ function mobility21_subfeaturecolumns_metabox(){ ?>
 			
 			<tr>
 				<th>
-					<label for="<?php echo hybrid_settings_field_id( "subfeature_column_{$count}_hover_image" ); ?>"><?php _e( 'Hover Image URL location:', hybrid_get_textdomain() ); ?></label>
+					<label for="<?php echo hybrid_settings_field_id( "subfeature_column_{$count}_hover_image" ); ?>"><?php _e( 'Hover Image URL location:', hybrid_get_parent_textdomain() ); ?></label>
 				</th>
 				<td>
 					<textarea id="<?php echo hybrid_settings_field_id( "subfeature_column_{$count}_hover_image" ); ?>" name="<?php echo hybrid_settings_field_name( "subfeature_column_{$count}_hover_image" ); ?>" ><?php echo hybrid_get_setting( "subfeature_column_{$count}_hover_image" ); ?></textarea>
@@ -292,7 +292,7 @@ function mobility21_subsidiary_metabox(){ ?>
 	<table class="form-table subsidiary-columns">
 		<tr>
 			<th>
-				<label for="<?php echo hybrid_settings_field_id( 'disable_subsidiary_columns' ); ?>"><?php _e( 'Disable Subsidiary Columns:', hybrid_get_textdomain() ); ?></label>
+				<label for="<?php echo hybrid_settings_field_id( 'disable_subsidiary_columns' ); ?>"><?php _e( 'Disable Subsidiary Columns:', hybrid_get_parent_textdomain() ); ?></label>
 			</th>
 			<td>
 				<input type="checkbox" id="<?php echo hybrid_settings_field_id('disable_subsidiary_columns'); ?>" name="<?php echo hybrid_settings_field_name('disable_subsidiary_columns'); ?>" value="disable" <?php checked('disable',hybrid_get_setting("disable_subsidiary_columns")); ?> />
@@ -315,7 +315,7 @@ function mobility21_subsidiary_metabox(){ ?>
 			</tr>
 			<tr>
 				<th>
-					<label for="<?php echo hybrid_settings_field_id( "widgetize_subsidiary_column_{$count}" ); ?>"><?php _e( 'Widgetize This Column:', hybrid_get_textdomain() ); ?></label>
+					<label for="<?php echo hybrid_settings_field_id( "widgetize_subsidiary_column_{$count}" ); ?>"><?php _e( 'Widgetize This Column:', hybrid_get_parent_textdomain() ); ?></label>
 				</th>
 				<td>
 					<input type="checkbox" id="<?php echo hybrid_settings_field_id("widgetize_subsidiary_column_{$count}"); ?>" name="<?php echo hybrid_settings_field_name("widgetize_subsidiary_column_{$count}"); ?>" value="widgetize" <?php checked('widgetize',hybrid_get_setting("widgetize_subsidiary_column_{$count}")); ?> />
@@ -326,7 +326,7 @@ function mobility21_subsidiary_metabox(){ ?>
 			</tr>
 			<tr class="subsidiary-column-<?php echo $count; ?>-content">
 				<th>
-					<label for="<?php echo hybrid_settings_field_id( "subsidiary_column_{$count}_title" ); ?>"><?php _e( 'Column Title:', hybrid_get_textdomain() ); ?></label>
+					<label for="<?php echo hybrid_settings_field_id( "subsidiary_column_{$count}_title" ); ?>"><?php _e( 'Column Title:', hybrid_get_parent_textdomain() ); ?></label>
 				</th>
 				<td>
 					<input type="text" id="<?php echo hybrid_settings_field_id( " subsidiary_column_{$count}_title" ); ?>" name="<?php echo hybrid_settings_field_name( "subsidiary_column_{$count}_title" ); ?>" value="<?php echo hybrid_get_setting( "subsidiary_column_{$count}_title" ); ?>" />
@@ -337,7 +337,7 @@ function mobility21_subsidiary_metabox(){ ?>
 			</tr>
 			<tr class="subsidiary-column-<?php echo $count; ?>-content">
 				<th>
-					<label for="<?php echo hybrid_settings_field_id( "subsidiary_column_{$count}_content" ); ?>"><?php _e( 'Column Content:', hybrid_get_textdomain() ); ?></label>
+					<label for="<?php echo hybrid_settings_field_id( "subsidiary_column_{$count}_content" ); ?>"><?php _e( 'Column Content:', hybrid_get_parent_textdomain() ); ?></label>
 				</th>
 				<td colspan="2">
 					<textarea id="<?php echo hybrid_settings_field_id( "subsidiary_column_{$count}_content" ); ?>" name="<?php echo hybrid_settings_field_name( "subsidiary_column_{$count}_content" ); ?>" cols="60" rows="5" ><?php echo hybrid_get_setting("subsidiary_column_{$count}_content" ); ?></textarea>
@@ -363,7 +363,7 @@ function mobility21_bottomfeature_metabox(){ ?>
 	<table class="form-table bottom-feature">
 		<tr>
 			<th>
-				<label for="<?php echo hybrid_settings_field_id( 'disable_bottom_feature' ); ?>"><?php _e( 'Disable Bottom Feature Area:', hybrid_get_textdomain() ); ?></label>
+				<label for="<?php echo hybrid_settings_field_id( 'disable_bottom_feature' ); ?>"><?php _e( 'Disable Bottom Feature Area:', hybrid_get_parent_textdomain() ); ?></label>
 			</th>
 			<td>
 				<input type="checkbox" id="<?php echo hybrid_settings_field_id('disable_bottom_feature'); ?>" name="<?php echo hybrid_settings_field_name('disable_bottom_feature'); ?>" value="disable" <?php checked('disable',hybrid_get_setting("disable_bottom_feature")); ?> />
@@ -386,7 +386,7 @@ function mobility21_bottomfeature_metabox(){ ?>
 			</tr>
 			<tr>
 				<th>
-					<label for="<?php echo hybrid_settings_field_id( "widgetize_bottomfeature_column_{$count}" ); ?>"><?php _e( 'Widgetize This Column:', hybrid_get_textdomain() ); ?></label>
+					<label for="<?php echo hybrid_settings_field_id( "widgetize_bottomfeature_column_{$count}" ); ?>"><?php _e( 'Widgetize This Column:', hybrid_get_parent_textdomain() ); ?></label>
 				</th>
 				<td>
 					<input type="checkbox" id="<?php echo hybrid_settings_field_id("widgetize_bottomfeature_column_{$count}"); ?>" name="<?php echo hybrid_settings_field_name("widgetize_bottomfeature_column_{$count}"); ?>" value="widgetize" <?php checked('widgetize',hybrid_get_setting("widgetize_bottomfeature_column_{$count}")); ?> />
@@ -397,7 +397,7 @@ function mobility21_bottomfeature_metabox(){ ?>
 			</tr>
 			<tr class="bottomfeature-column-<?php echo $count; ?>-content">
 				<th>
-					<label for="<?php echo hybrid_settings_field_id( "bottomfeature_column_{$count}_title" ); ?>"><?php _e( 'Column Title:', hybrid_get_textdomain() ); ?></label>
+					<label for="<?php echo hybrid_settings_field_id( "bottomfeature_column_{$count}_title" ); ?>"><?php _e( 'Column Title:', hybrid_get_parent_textdomain() ); ?></label>
 				</th>
 				<td>
 					<input type="text" id="<?php echo hybrid_settings_field_id( "bottomfeature_column_{$count}_title" ); ?>" name="<?php echo hybrid_settings_field_name( "bottomfeature_column_{$count}_title" ); ?>" value="<?php echo hybrid_get_setting( "bottomfeature_column_{$count}_title" ); ?>" />
@@ -408,7 +408,7 @@ function mobility21_bottomfeature_metabox(){ ?>
 			</tr>
 			<tr class="bottomfeature-column-<?php echo $count; ?>-content">
 				<th>
-					<label for="<?php echo hybrid_settings_field_id( "bottomfeature_column_{$count}_content" ); ?>"><?php _e( 'Column Content:', hybrid_get_textdomain() ); ?></label>
+					<label for="<?php echo hybrid_settings_field_id( "bottomfeature_column_{$count}_content" ); ?>"><?php _e( 'Column Content:', hybrid_get_parent_textdomain() ); ?></label>
 				</th>
 				<td colspan="2">
 					<textarea id="<?php echo hybrid_settings_field_id( "bottomfeature_column_{$count}_content" ); ?>" name="<?php echo hybrid_settings_field_name( "bottomfeature_column_{$count}_content" ); ?>" cols="60" rows="5" ><?php echo hybrid_get_setting( "bottomfeature_column_{$count}_content" ); ?></textarea>
@@ -482,7 +482,7 @@ function mobility21_popup_metabox(){
 	<table class="form-table">
 		<tr>
 			<th>
-				<label for="<?php echo hybrid_settings_field_id( 'disable_popup' ); ?>"><?php _e( 'Check to disable the Popup:', hybrid_get_textdomain() ); ?></label>
+				<label for="<?php echo hybrid_settings_field_id( 'disable_popup' ); ?>"><?php _e( 'Check to disable the Popup:', hybrid_get_parent_textdomain() ); ?></label>
 			</th>
 			<td>
 				<input type="checkbox" id="<?php echo hybrid_settings_field_id('disable_popup'); ?>" name="<?php echo hybrid_settings_field_name('disable_popup'); ?>" value="disable" <?php checked('disable',hybrid_get_setting("disable_popup")); ?> />
@@ -490,7 +490,7 @@ function mobility21_popup_metabox(){
 		</tr>
 		<tr>
 			<th>
-				<label for="<?php echo hybrid_settings_field_id( 'widgetize_popup' ); ?>"><?php _e( 'Check to widgetize the Popup', hybrid_get_textdomain() ); ?></label>
+				<label for="<?php echo hybrid_settings_field_id( 'widgetize_popup' ); ?>"><?php _e( 'Check to widgetize the Popup', hybrid_get_parent_textdomain() ); ?></label>
 			</th>
 			<td>
 				<input type="checkbox" id="<?php echo hybrid_settings_field_id('widgetize_popup'); ?>" name="<?php echo hybrid_settings_field_name('widgetize_popup'); ?>" value="widgetize" <?php checked('widgetize',hybrid_get_setting("widgetize_popup")); ?> />
@@ -499,7 +499,7 @@ function mobility21_popup_metabox(){
 		</tr>
 		<tr>
 			<th>
-				<label for="<?php echo hybrid_settings_field_id( 'popup_delay' ); ?>"><?php _e( 'Popup Delay:', hybrid_get_textdomain() ); ?></label>
+				<label for="<?php echo hybrid_settings_field_id( 'popup_delay' ); ?>"><?php _e( 'Popup Delay:', hybrid_get_parent_textdomain() ); ?></label>
 			</th>
 			<td>
 				<input type="text" id="<?php echo hybrid_settings_field_id('popup_delay'); ?>" name="<?php echo hybrid_settings_field_name('popup_delay'); ?>" value="<?php echo hybrid_get_setting( "popup_delay" ); ?>" size="6"/> <em>milliseconds</em>
@@ -508,7 +508,7 @@ function mobility21_popup_metabox(){
 		</tr>
 		<tr>
 			<th>
-				<label for="<?php echo hybrid_settings_field_id( 'test_popup' ); ?>"><?php _e( 'Check to test the Popup:', hybrid_get_textdomain() ); ?></label>
+				<label for="<?php echo hybrid_settings_field_id( 'test_popup' ); ?>"><?php _e( 'Check to test the Popup:', hybrid_get_parent_textdomain() ); ?></label>
 			</th>
 			<td>
 				<input type="checkbox" id="<?php echo hybrid_settings_field_id('test_popup'); ?>" name="<?php echo hybrid_settings_field_name('test_popup'); ?>" value="test" <?php checked('test',hybrid_get_setting("test_popup")); ?> />
