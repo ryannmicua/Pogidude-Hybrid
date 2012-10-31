@@ -6,10 +6,10 @@ define( 'THEME_ASSETS', THEME_URI . '/assets' );
 define( 'THEME_CSS', THEME_URI . '/css' );
 
 //sets the path to the theme javascript directory URI
-define( 'THEME_JS', THEME_JS . '/js' );
+define( 'THEME_JS', THEME_URI . '/js' );
 
 //sets the path to the theme images directory URI
-define( 'THEME_IMAGES', THEME_IMAGES . '/images' );
+define( 'THEME_IMAGES', THEME_URI . '/images' );
 
 define( 'THEME_LIB_DIR', THEME_DIR . '/library' );
 define( 'THEME_LIB_URI', THEME_URI . '/library' );
