@@ -9,8 +9,8 @@
 function optionsframework_option_name() {
 
 	// This gets the theme name from the stylesheet (lowercase and without spaces)
-	$themename = get_theme_data(STYLESHEETPATH . '/style.css');
-	$themename = $themename['Name'];
+	$theme = wp_get_theme();
+	$themename = $theme->Name;
 	$themename = preg_replace("/\W/", "", strtolower($themename) );
 	
 	$optionsframework_settings = get_option('optionsframework');
